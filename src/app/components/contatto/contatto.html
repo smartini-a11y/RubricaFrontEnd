@@ -8,6 +8,8 @@
 <body>
 
   <h1>Dettagli Contatto</h1>
+  <button type="button"><a href="../"style="text-decoration: none;color: black;">Torna alla rubrica</a></button>
+  
   
   <div class="contatto-dettagli">
     <p><strong>Nome:</strong> {{ c.nome }}</p>
@@ -16,36 +18,33 @@
     <p><strong>Email:</strong> {{ c.email }}</p>
   </div>
 
-  <div>
-    <p>Aggiungi familiare:</p>
     <div>
-      <label for="condivisione">Scegli un contatto dalla rubrica:</label>
+      <label>Scegli un contatto dalla rubrica:</label>
       
       <select id="condivisione" name="condivisione">
-        <option value="">-- Seleziona un familiare --</option>
-        <option *ngFor="let contatto of listaContatti" [value]="contatto.email">
-          {{ contatto.nome }} {{ contatto.cognome }}
-        </option>
+        <option value="" disabled selected>-- Seleziona un familiare --</option>
+    <span *ngFor="let item of listaContatti" > 
+      <option *ngIf="checkContatto(item)" tags="option" [value]="item.id">
+        {{ item.nome }} {{ item.cognome }}
+      </option>
+    </span>
       </select>
     </div>
-  </div>
+    
+    <button type="button" (click)="condividiContatto()">Aggiungi famigliare</button>
+    <h3>Familiari Selezionati</h3>
+    <div class="messaggio">
+    {{ messaggio }}
+    </div>
 
-  <div>
-    <button type="button" onclick="condividiContatto()">Condividi Contatto</button>
-  </div>
+    <div *ngFor="let f of familiariSelezionati">
+
+
+  <button (click)="vediDettaglio(f)">Info</button>
+  <button (click)="rimuoviFamiliare(f)">Elimina</button>
+</div>
+
 
 </body>
-<script>
-    function condividiContatto()
-    {
-        const selectElement = document.getElementById('condivisione');
-        const selectedEmail = selectElement.value;
-        
-        if (selectedEmail) {
-            alert(`Contatto condiviso con: ${selectedEmail}`);
-        } else {
-            alert('Seleziona un familiare per condividere il contatto.');
-        }
-    }
-</script>
+
 </html>

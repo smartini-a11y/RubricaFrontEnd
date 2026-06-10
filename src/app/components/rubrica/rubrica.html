@@ -10,7 +10,7 @@
 <div class="rubrica-container">
   <div *ngFor="let c of listaContatti" class="contatto">
     <a [routerLink]="['/contatto']" 
-       [queryParams]="{ nome: c.nome, cognome: c.cognome, telefono: c.telefono, email: c.email }" 
+       [queryParams]="{ id: c.id, nome: c.nome, cognome: c.cognome, telefono: c.telefono, email: c.email }" 
        [state]="{ tuttiIContatti: listaContatti }"
        style="text-decoration: none; color: black;">
        {{ c.nome }} {{ c.cognome }}
