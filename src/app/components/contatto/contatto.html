@@ -1,16 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="utf-8">
   <title>Contatto</title>
   <link rel="stylesheet" href="contatto.css">
 </head>
 <body>
+
   <h1>Dettagli Contatto</h1>
+  
   <div class="contatto-dettagli">
     <p><strong>Nome:</strong> {{ c.nome }}</p>
     <p><strong>Cognome:</strong> {{ c.cognome }}</p>
     <p><strong>Telefono:</strong> {{ c.telefono }}</p>
     <p><strong>Email:</strong> {{ c.email }}</p>
   </div>
+
+  <div>
+    <p>Aggiungi familiare:</p>
+    <div>
+      <label for="condivisione">Scegli un contatto dalla rubrica:</label>
+      
+      <select id="condivisione" name="condivisione">
+        <option value="">-- Seleziona un familiare --</option>
+        <option *ngFor="let contatto of listaContatti" [value]="contatto.email">
+          {{ contatto.nome }} {{ contatto.cognome }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <button type="button" onclick="condividiContatto()">Condividi Contatto</button>
+  </div>
+
 </body>
+<script>
+    function condividiContatto()
+    {
+        const selectElement = document.getElementById('condivisione');
+        const selectedEmail = selectElement.value;
+        
+        if (selectedEmail) {
+            alert(`Contatto condiviso con: ${selectedEmail}`);
+        } else {
+            alert('Seleziona un familiare per condividere il contatto.');
+        }
+    }
+</script>
+</html>

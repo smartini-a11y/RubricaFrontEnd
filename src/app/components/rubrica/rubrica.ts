@@ -23,6 +23,7 @@ interface Contatto {
     { nome: 'Mario', cognome: 'Rossi', telefono: '333123456', email: 'mario.rossi@email.com' },
     { nome: 'Luigi', cognome: 'Verdi', telefono: '333987654', email: 'luigi.verdi@email.com' },
     { nome: 'Giulia', cognome: 'Bonani', telefono: '333134567', email: 'giulia.bonani@email.com' },
+    { nome: 'Francesca', cognome: 'Bianchi', telefono: '333765432', email: 'francesca.bianchi@email.com' }
   ];
 
   nuovoNome: string = '';
