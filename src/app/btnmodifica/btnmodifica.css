@@ -1,0 +1,16 @@
+.btn-aggiungi {
+  background-color: #ffd500;
+  color: #333;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.btn-aggiungi:hover {
+  background-color: #ffcc00;
+  transform: scale(1.05);
+}

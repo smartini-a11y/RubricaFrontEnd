@@ -1,0 +1,28 @@
+<div class="rubrica-container">
+
+  <h1>Rubrica Contatti</h1>
+
+  <div class="area-bottone">
+    <app-btnaggiungi-fam></app-btnaggiungi-fam>
+  </div>
+  <div>
+    <app-btnmodifica></app-btnmodifica>
+  </div>
+  <div>
+  </div>
+
+  <app-descrizione-tabella></app-descrizione-tabella>
+
+  <table class="tabella">
+    <tbody>
+      <app-riga-tabella
+        *ngFor="let c of contatti"
+        [nome]="c.nome"
+        [cognome]="c.cognome"
+        [telefono]="c.numTelefono"
+        [email]="c.email">
+      </app-riga-tabella>
+    </tbody>
+  </table>
+
+</div>

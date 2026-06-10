@@ -1,0 +1,19 @@
+.btn-modifica {
+  background-color: #74c0fc;
+  color: #1c1c1c;
+  border: 2px solid #4dabf7;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  margin-left: 15px;
+}
+
+.btn-modifica:hover {
+  background-color: #4dabf7;
+  border-color: #1c7ed6;
+  transform: translateY(-2px);
+}

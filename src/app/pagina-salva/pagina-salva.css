@@ -1,0 +1,27 @@
+.pagina-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #fff8b3;
+  border-radius: 12px;
+  border: 2px solid #e0c200;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #ffd500;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background-color: #ffcc00;
+  transform: scale(1.05);
+}

@@ -1,0 +1,16 @@
+.btn-salva {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #ffd500;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.btn-salva:hover {
+  background-color: #ffcc00;
+  transform: scale(1.05);
+}
