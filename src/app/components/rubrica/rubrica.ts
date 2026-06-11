@@ -7,12 +7,15 @@ import { BTNaggiungiFam } from "../../btnaggiungi-fam/btnaggiungi-fam";
 import { BTNmodifica } from "../../btnmodifica/btnmodifica";
 import { BtnContattoComponent } from "../../btn-contatto/btn-contatto";
 
+import { ContattiAggingiService } from '../../servizi/contatti-aggingi';
+import { ChangeDetectorRef } from '@angular/core';
+
 interface Contatto {
   id: number;
   nome: string;
   cognome: string;
-  telefono: string;
   email: string;
+  Numtelefono: string;
 }
 
 @Component({
@@ -23,21 +26,29 @@ interface Contatto {
   imports: [CommonModule, FormsModule, RouterLink, BTNaggiungiFam, BTNmodifica, BtnContattoComponent]
 })
 //gestisco la lista che creo in una classe e faccio i metodi per aggiungere, modificare e cancellare i contatti
- export class RubricaComponent {
-  listaContatti: Contatto[] = [
+export class RubricaComponent {
+  
+  listaContatti: Contatto[] = [];
 
-    { id: 1, nome: 'Mario', cognome: 'Rossi', telefono: '333123456', email: 'mario.rossi@email.com' },
-    { id: 2, nome: 'Luigi', cognome: 'Verdi', telefono: '333987654', email: 'luigi.verdi@email.com' },
-    { id: 3, nome: 'Giulia', cognome: 'Bonani', telefono: '333134567', email: 'giulia.bonani@email.com' },
-    { id: 4, nome: 'Francesca', cognome: 'Bianchi', telefono: '333765432', email: 'francesca.bianchi@email.com' }
-
-  ];
+  constructor(private service: ContattiAggingiService,  private cdr: ChangeDetectorRef) {}
+  ngOnInit(): void {
+    console.log('INIT');
+    this.service.getContatti().subscribe({
+      next: (data) => {
+        this.listaContatti = data; 
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Errore API:', err);
+      }
+    });
+  }
 
   nuovoNome: string = '';
   nuovoCognome: string = '';
   nuovoTelefono: string = '';
   nuovaEmail: string = '';
-  ultimoId=5;
+  ultimoId= 100;
 
   aggiungiContatto() 
   {
@@ -47,8 +58,8 @@ interface Contatto {
         id: this.ultimoId++,
         nome: this.nuovoNome,
         cognome: this.nuovoCognome,
-        telefono: this.nuovoTelefono,
-        email: this.nuovaEmail
+        email: this.nuovaEmail,
+        Numtelefono: this.nuovoTelefono
       });
       this.nuovoNome = '';
       this.nuovoCognome = '';

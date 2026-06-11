@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="utf-8">
-  <title>Contatto</title>
-  <link rel="stylesheet" href="contatto.css">
-</head>
-<body>
-
-  <h1>Dettagli Contatto</h1>
+<h1>Dettagli Contatto</h1>
   <button type="button" class="btn-ritorno" >
     <a 
       href="../" style="text-decoration: none;color: black;">Torna alla rubrica
     </a>  
-</button>
+  </button>
   
   
   <div class="contatto-dettagli">
@@ -44,12 +35,11 @@
     <h3>Familiari Selezionati</h3>
 
     <div *ngFor="let f of familiariSelezionati" class="familiare-item">
-    <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
+      <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
     
       <div class="familiare-actions">
           <a href="/contatto/{{ f.id }}" class="btn-info-custom">info</a>
           <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">Elimina</button>
       </div>
     </div>
-  </body>
-</html>
+  </div>

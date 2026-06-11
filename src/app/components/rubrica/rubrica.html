@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Rubrica</title>
-  <link rel="stylesheet" href="rubrica.css">
-</head>
-<body>
-  <h1>Contatti</h1>
-  <app-btnaggiungi-fam></app-btnaggiungi-fam>
+<h1>Contatti</h1>
+<app-btnaggiungi-fam></app-btnaggiungi-fam>
 <div class="rubrica-container">
-
   <div *ngFor="let c of listaContatti" class="contatto">
     <a [routerLink]="['/contatto', c.id]" 
        [queryParams]="{ id: c.id}" 
@@ -19,7 +10,4 @@
     </a>
   </div>
 </div>
-  
-  <app-btnmodifica></app-btnmodifica>
-</body>
-</html>
+<app-btnmodifica></app-btnmodifica>
