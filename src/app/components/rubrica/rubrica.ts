@@ -44,31 +44,7 @@ export class RubricaComponent {
       }
     });
   }
-
-constructor(private router: Router){}
-ngOnInit(): void {
-    const state = window.history.state;
-
-    if (state && state.contatto) {
-      const updatedContact = state.contatto;
-
-      // Find by checking both possible phone key names just in case
-      const index = this.listaContatti.findIndex(
-        c => c.telefono === updatedContact.telefono || c.telefono === updatedContact.numTelefono
-      );
-
-      if (index !== -1) {
-        // Overwrite the existing contact cleanly
-        this.listaContatti[index] = {
-          ...this.listaContatti[index], // Keeps original ID intact safely
-          nome: updatedContact.nome,
-          cognome: updatedContact.cognome,
-          telefono: updatedContact.telefono, // Stored safely as 'telefono'
-          email: updatedContact.email
-        };
-      }
-    }
-  }
+  
   nuovoNome: string = '';
   nuovoCognome: string = '';
   nuovoTelefono: string = '';

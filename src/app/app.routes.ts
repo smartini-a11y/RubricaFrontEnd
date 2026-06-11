@@ -4,7 +4,7 @@ import { PaginaAggiungiComponent } from './pagina-aggiungi/pagina-aggiungi';
 import { PaginaModicaComponent } from './pagina-modica-contatto/pagina-modica-contatto';
 import { RubricaComponent } from './components/rubrica/rubrica';
 import { ContattoComponent } from './components/contatto/contatto';
-import { BtnContattoComponent } from './components/btn-contatto/btn-contatto';
+import { BtnContattoComponent } from './btn-contatto/btn-contatto';
 
 
 export const routes: Routes = [
