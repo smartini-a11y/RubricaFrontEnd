@@ -1,84 +1,76 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router'; // <-- Import this
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-contatto',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './contatto.html',
-  styleUrl: './contatto.css'
+  styleUrl: './contatto.css',
 })
 export class ContattoComponent implements OnInit {
-  // Creating an object to hold the data so contatto.html can see it
-  c: any = {};
+  c: any = undefined;
   listaContatti: any[] = [];
+  familiariSelezionati: any[] = [];
+  messaggio: string = '';
 
-  messaggio = '';
+  // Variabile d'appoggio per il select per evitare getElementById
+  idSelezionato: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute,private router: Router,) 
+  {
     // Recuperiamo la lista che arriva dall'altra pagina
     const navigazione = this.router.getCurrentNavigation();
-    if (navigazione?.extras.state) {
+    if (navigazione?.extras.state && navigazione.extras.state['tuttiIContatti']) 
+    {
       this.listaContatti = navigazione.extras.state['tuttiIContatti'];
     }
   }
 
   ngOnInit(): void 
   {
-    // Look at the URL and grab the parameters
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    // cerca il contatto con quell'id
-    this.c = this.listaContatti.find(c => Number(c.id) === id);
+    // Ascolta l'URL: se l'ID cambia, esegue il codice qui dentro AUTOMATICAMENTE
+    this.route.paramMap.subscribe(params => {const id = Number(params.get('id'));
+    // Trova il contatto corrispondente all'ID e assegnalo a 'c'
+    this.c = this.listaContatti.find(c => Number(c.id) === id);});
   }
-  
+
+  // Controlla se l'item della lista è il contatto corrente (per escluderlo dai familiari selezionabili)
   checkContatto(item: any): boolean {
-    if (item.nome === this.c.nome && item.cognome === this.c.cognome) {
-      return false;
-    }
-    return true;
+    if (!this.c) return true;
+    return item.id !== this.c.id; // controllo tramite id
   }
 
-    familiariSelezionati: any[] = [];
+  // ID come parametro direttamente dall'HTML
+  condividiContatto(selectedId: number): void 
+  {
+    if (!selectedId) return;
 
-  condividiContatto()
-    {
-      const selectedElement=document.getElementById('condivisione') as HTMLSelectElement;
-      const selectedId = Number(selectedElement.value);
-      
-      const familiare = this.listaContatti.find(c => Number(c.id)=== selectedId);
+    const familiare = this.listaContatti.find((c) => Number(c.id) === selectedId);
 
-      if (!familiare) 
-      {
-        return;
-      }
-      // Evito duplicati
-      if (!this.familiariSelezionati.includes(familiare)) 
-        {
-          this.familiariSelezionati.push(familiare);
-        }
+    if (!familiare) return;
 
-      //ciclo per costruire il messaggio
-      let lista = '';
+    // Evito duplicati sempre confrontanto gli id
+    const giaPresente = this.familiariSelezionati.some(
+      (f) => Number(f.id) === Number(familiare.id),
+    );
+    if (!giaPresente) {
+      this.familiariSelezionati.push(familiare);
+      this.aggiornaMessaggio();
+    }
+  }
 
-      for (let f of this.familiariSelezionati) 
-        {
-          lista += `${f.nome} ${f.cognome}\n`;    
-        }
+  rimuoviFamiliare(familiare: any): void 
+  {
+    this.familiariSelezionati = this.familiariSelezionati.filter((f) => Number(f.id) !== Number(familiare.id),);
+    this.aggiornaMessaggio();
+  }
 
-        this.messaggio = lista ;
-        
-      }
-
-       rimuoviFamiliare(familiare: any) 
-      {
-        this.familiariSelezionati = this.familiariSelezionati.filter(f => Number(f.id) !== Number(familiare.id));
-      }
-
-      vediDettaglio(familiare: any)
-      {
-        this.router.navigate(['/contatto', familiare.id]);
-      }
+  // Messo in una funzione separata per non ripetere codice
+  aggiornaMessaggio(): void 
+  {
+    this.messaggio = this.familiariSelezionati.map((f) => `${f.nome} ${f.cognome}`).join('\n');
+  }
 }
