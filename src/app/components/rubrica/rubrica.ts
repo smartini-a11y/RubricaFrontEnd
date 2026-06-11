@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import{RouterLink} from '@angular/router';
 import { BTNaggiungiFam } from "../../btnaggiungi-fam/btnaggiungi-fam";
 import { BTNmodifica } from "../../btnmodifica/btnmodifica";
+import { BtnElimina } from "../../btn-elimina/btn-elimina";
 
 interface Contatto {
   nome: string;
@@ -17,7 +18,7 @@ interface Contatto {
   standalone: true,
   templateUrl: './rubrica.html',
   styleUrl: './rubrica.css',
-  imports: [CommonModule, FormsModule, RouterLink, BTNaggiungiFam, BTNmodifica]
+  imports: [CommonModule, FormsModule, RouterLink, BTNaggiungiFam, BTNmodifica, BtnElimina]
 })
 //gestisco la lista che creo in una classe e faccio i metodi per aggiungere, modificare e cancellare i contatti
  export class RubricaComponent {
