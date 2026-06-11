@@ -10,22 +10,40 @@ import { FormsModule } from '@angular/forms';
 })
 export class PaginaModificaComponent {
 
+  // FASE 1: dati di ricerca
+  cercaNome: string = '';
+  cercaCognome: string = '';
+  cercaNumTelefono: string = '';
+  cercaEmail: string = '';
+
+  // FASE 2: dati da modificare
   nome: string = '';
   cognome: string = '';
   numTelefono: string = '';
   email: string = '';
 
-  salvaContatto() {
-    console.log("Contatto modificato!");
-    console.log({
+  // flag per mostrare la seconda form
+  mostraSecondaForm: boolean = false;
+
+  // prende i dati del primo form e li copia nel secondo
+  cercaContatto() {
+    this.nome = this.cercaNome;
+    this.cognome = this.cercaCognome;
+    this.numTelefono = this.cercaNumTelefono;
+    this.email = this.cercaEmail;
+
+    // per ora l’email la lasci vuota o la compili a mano
+    this.mostraSecondaForm = true;
+  }
+
+  salvaModifiche() {
+    const contattoAggiornato = {
       nome: this.nome,
       cognome: this.cognome,
       numTelefono: this.numTelefono,
       email: this.email
-    });
-    alert("fatto");
+    };
 
-    // Qui potrai aggiungere la PUT API
-    // this.http.put('URL', { nome, cognome, numTelefono, email }).subscribe(...)
+    console.log('Contatto aggiornato:', contattoAggiornato);
   }
 }
