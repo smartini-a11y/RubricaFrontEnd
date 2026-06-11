@@ -4,6 +4,7 @@ import { PaginaAggiungiComponent } from './pagina-aggiungi/pagina-aggiungi';
 import { PaginaModificaComponent } from './pagina-modica-contatto/pagina-modica-contatto';
 import { RubricaComponent } from './components/rubrica/rubrica';
 import { ContattoComponent } from './components/contatto/contatto';
+import { BtnContattoComponent } from './components/btn-contatto/btn-contatto';
 
 
 export const routes: Routes = [
@@ -15,6 +16,6 @@ export const routes: Routes = [
   // pagina modifica
   { path: 'pagina-modica-contatto', component: PaginaModificaComponent },
 
-  // pagina salva
+  { path: 'btn-contatto', component: BtnContattoComponent }
 
 ];

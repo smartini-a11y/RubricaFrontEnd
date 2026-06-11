@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import{RouterLink} from '@angular/router';
-
-import { BTNaggiungiFam } from "../../btnaggiungi-fam/btnaggiungi-fam";
-import { BTNmodifica } from "../../btnmodifica/btnmodifica";
-import { BtnContattoComponent } from "../../btn-contatto/btn-contatto";
+import { BTNaggiungiFam } from "../btnaggiungi-fam/btnaggiungi-fam";
+import { BTNmodifica } from "../btnmodifica/btnmodifica";
+import { BtnContattoComponent } from "../btn-contatto/btn-contatto";
 
 interface Contatto {
   id: number;

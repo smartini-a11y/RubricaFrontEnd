@@ -15,11 +15,12 @@
        [queryParams]="{ id: c.id}" 
        [state]="{ tuttiIContatti: listaContatti }"
        style="text-decoration: none; color: black;">
-       {{ c.nome }} {{ c.cognome }}
+      <div class="contatto-info">
+        <app-btn-contatto [c]="c"></app-btn-contatto>
+      </div>
     </a>
   </div>
 </div>
-  
   <app-btnmodifica></app-btnmodifica>
 </body>
 </html>
