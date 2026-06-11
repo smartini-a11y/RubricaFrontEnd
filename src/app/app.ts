@@ -1,11 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BTNaggiungiFam } from "./btnaggiungi-fam/btnaggiungi-fam";
-import { RubricaComponent } from "./components/rubrica/rubrica";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BTNaggiungiFam, RubricaComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
