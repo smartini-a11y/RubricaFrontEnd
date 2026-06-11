@@ -1,55 +1,48 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="utf-8">
-  <title>Contatto</title>
-  <link rel="stylesheet" href="contatto.css">
-</head>
-<body>
+<h1>Dettagli Contatto</h1>
 
-  <h1>Dettagli Contatto</h1>
-  <button type="button" class="btn-ritorno" >
-    <a 
-      href="../" style="text-decoration: none;color: black;">Torna alla rubrica
-    </a>  
+<button type="button" class="btn-ritorno">
+  <a routerLink="/" style="text-decoration: none; color: black;">
+    Torna alla rubrica
+  </a>
 </button>
-  
-  
-  <div class="contatto-dettagli">
-    <p><strong>Nome:</strong> {{ c.nome }}</p>
-    <p><strong>Cognome:</strong> {{ c.cognome }}</p>
-    <p><strong>Telefono:</strong> {{ c.telefono }}</p>
-    <p><strong>Email:</strong> {{ c.email }}</p>
-  </div>
 
+<div class="contatto-dettagli">
+  <p><strong>Nome:</strong> {{ c.nome }}</p>
+  <p><strong>Cognome:</strong> {{ c.cognome }}</p>
+  <p><strong>Telefono:</strong> {{ c.telefono }}</p>
+  <p><strong>Email:</strong> {{ c.email }}</p>
+</div>
+
+<div>
+  <p>Aggiungi familiare:</p>
 
   <div>
-    <p>Aggiungi familiare:</p>
-    
-    <div>
-      <label>Scegli un contatto dalla rubrica:</label>
-      
-      <select id="condivisione" name="condivisione">
-        <option value="" disabled selected>-- Seleziona un familiare --</option>
-         <option
-            *ngFor="let item of listaContatti"
-            [value]="item.id"
-            [hidden]="!checkContatto(item)">
-            {{ item.nome }} {{ item.cognome }}
-        </option>
-      </select>
-    </div>
-    
-    <button type="button" (click)="condividiContatto()">Aggiungi famigliare</button>
-    <h3>Familiari Selezionati</h3>
+    <label>Scegli un contatto dalla rubrica:</label>
 
-    <div *ngFor="let f of familiariSelezionati" class="familiare-item">
+    <select id="condivisione" name="condivisione">
+      <option value="" disabled selected>-- Seleziona un familiare --</option>
+
+      <option
+        *ngFor="let item of listaContatti"
+        [value]="item.id"
+        [hidden]="!checkContatto(item)">
+        {{ item.nome }} {{ item.cognome }}
+      </option>
+    </select>
+  </div>
+
+  <button type="button" (click)="condividiContatto()">Aggiungi familiare</button>
+
+  <h3>Familiari Selezionati</h3>
+
+  <div *ngFor="let f of familiariSelezionati" class="familiare-item">
     <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
-    
-      <div class="familiare-actions">
-          <a href="/contatto/{{ f.id }}" class="btn-info-custom">info</a>
-          <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">Elimina</button>
-      </div>
+
+    <div class="familiare-actions">
+      <a [routerLink]="['/contatto', f.id]" class="btn-info-custom">info</a>
+      <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">
+        Elimina
+      </button>
     </div>
-  </body>
-</html>
+  </div>
+</div>
