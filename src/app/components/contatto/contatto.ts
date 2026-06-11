@@ -78,11 +78,11 @@ export class ContattoComponent implements OnInit {
 
        rimuoviFamiliare(familiare: any) 
       {
-          
+        this.familiariSelezionati = this.familiariSelezionati.filter(f => Number(f.id) !== Number(familiare.id));
       }
 
       vediDettaglio(familiare: any)
       {
-
+        this.router.navigate(['/contatto', familiare.id]);
       }
 }

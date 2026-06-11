@@ -23,26 +23,24 @@
       
       <select id="condivisione" name="condivisione">
         <option value="" disabled selected>-- Seleziona un familiare --</option>
-    <span *ngFor="let item of listaContatti" > 
-      <option *ngIf="checkContatto(item)" tags="option" [value]="item.id">
-        {{ item.nome }} {{ item.cognome }}
-      </option>
-    </span>
+         <option
+            *ngFor="let item of listaContatti"
+            [value]="item.id"
+            [hidden]="!checkContatto(item)">
+            {{ item.nome }} {{ item.cognome }}
+        </option>
       </select>
     </div>
     
     <button type="button" (click)="condividiContatto()">Aggiungi famigliare</button>
     <h3>Familiari Selezionati</h3>
-    <div class="messaggio">
-    {{ messaggio }}
-    </div>
 
     <div *ngFor="let f of familiariSelezionati">
+        {{ f.nome }} {{ f.cognome }}
 
-
-  <button (click)="vediDettaglio(f)">Info</button>
-  <button (click)="rimuoviFamiliare(f)">Elimina</button>
-</div>
+      <button (click)="vediDettaglio(f)">Info</button>
+      <button (click)="rimuoviFamiliare(f)">Elimina</button>
+    </div>
 
 
 </body>
