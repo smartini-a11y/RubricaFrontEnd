@@ -1,0 +1,15 @@
+.btn-contatto {
+    background-color: white;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #978d8d;
+    width: 250px;
+    height: 35px;
+    text-color:black;
+}
+.btn-contatto:hover {
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+}

@@ -13,7 +13,6 @@ export class BTNaggiungiFam {
 
   vaiAllaAggiungi() {
   this.router.navigate(['/pagina-aggiungi']);
-  alert("fatto")
 }
 
 }
