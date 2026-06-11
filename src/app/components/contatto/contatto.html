@@ -6,7 +6,7 @@
   </a>
 </button>
 
-<div class="contatto-dettagli">
+<div class="contatto-dettagli" *ngIf="c">
   <p><strong>Nome:</strong> {{ c.nome }}</p>
   <p><strong>Cognome:</strong> {{ c.cognome }}</p>
   <p><strong>Telefono:</strong> {{ c.telefono }}</p>
@@ -17,21 +17,20 @@
   <p>Aggiungi familiare:</p>
 
   <div>
-    <label>Scegli un contatto dalla rubrica:</label>
+    <label for="condivisione">Scegli un contatto dalla rubrica:</label>
 
-    <select id="condivisione" name="condivisione">
+    <select id="condivisione" name="condivisione" #selectCondivisione>
       <option value="" disabled selected>-- Seleziona un familiare --</option>
 
-      <option
-        *ngFor="let item of listaContatti"
-        [value]="item.id"
-        [hidden]="!checkContatto(item)">
-        {{ item.nome }} {{ item.cognome }}
-      </option>
+      <ng-container *ngFor="let item of listaContatti">
+        <option *ngIf="checkContatto(item)" [value]="item.id">
+          {{ item.nome }} {{ item.cognome }}
+        </option>
+      </ng-container>
     </select>
   </div>
 
-  <button type="button" (click)="condividiContatto()">Aggiungi familiare</button>
+  <button type="button" (click)="condividiContatto(+selectCondivisione.value)">Aggiungi familiare</button>
 
   <h3>Familiari Selezionati</h3>
 
