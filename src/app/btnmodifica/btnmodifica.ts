@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,10 +9,14 @@ import { Router } from '@angular/router';
 })
 export class BTNmodifica {
 
+  @Input() c!: any; 
+
   constructor(private router: Router) {}
 
  vaiAllaModifica() {
-  this.router.navigate(['/pagina-modica-contatto']);
+ this.router.navigate(['/pagina-modica-contatto'], {
+      state: { contatto: this.c }
+    });
 }
 
 }

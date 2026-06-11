@@ -1,49 +1,91 @@
-import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ContattiAggingiService } from '../servizi/contatti-aggingi';
 
 @Component({
-  selector: 'app-paginamodifica',
+  selector: 'app-pagina-modica',
   standalone: true,
   imports: [FormsModule],
   templateUrl: './pagina-modica-contatto.html',
   styleUrls: ['./pagina-modica-contatto.css']
 })
-export class PaginaModificaComponent {
+export class PaginaModicaComponent implements OnInit {
 
-  // FASE 1: dati di ricerca
-  cercaNome: string = '';
-  cercaCognome: string = '';
-  cercaNumTelefono: string = '';
-  cercaEmail: string = '';
+  idDaCercare: number | null = null;
 
-  // FASE 2: dati da modificare
+  // Modifiers properties bound to ngModel
   nome: string = '';
   cognome: string = '';
   numTelefono: string = '';
   email: string = '';
 
-  // flag per mostrare la seconda form
+  // Added missing properties referenced in cercaContatto()
+  cercaNome: string = '';
+  cercaCognome: string = '';
+  cercaNumTelefono: string = '';
+  cercaEmail: string = '';
   mostraSecondaForm: boolean = false;
 
-  // prende i dati del primo form e li copia nel secondo
-  cercaContatto() {
-    this.nome = this.cercaNome;
-    this.cognome = this.cercaCognome;
-    this.numTelefono = this.cercaNumTelefono;
-    this.email = this.cercaEmail;
+  // Injected ContattiAggingiService into the constructor
+  constructor(
+    private router: Router, 
+    private service: ContattiAggingiService 
+  ) {}
 
-    // per ora l’email la lasci vuota o la compili a mano
-    this.mostraSecondaForm = true;
+  ngOnInit(): void {
+    const state = window.history.state;
+
+    if (state && state.contatto) {
+      this.nome = state.contatto.nome;
+      this.cognome = state.contatto.cognome;
+      this.numTelefono = state.contatto.telefono; 
+      this.email = state.contatto.email;
+    }
+  }
+
+  cercaContatto() {
+    if (!this.idDaCercare) {
+      alert("Inserisci un ID valido per cercare");
+      return;
+    }
+
+    // Moved the API call inside the proper method block
+    this.service.getContatto(this.idDaCercare).subscribe({
+      next: (contatto) => {
+        console.log(contatto);
+        this.nome = contatto.nome;
+        this.cognome = contatto.cognome;
+        // Make sure property mapping matches your backend interface payload format (telefono vs numTelefono)
+        this.numTelefono = contatto.numTelefono || contatto.telefono;
+        this.email = contatto.email;
+        this.mostraSecondaForm = true;
+      },
+      error: (err) => {
+        console.error("Errore API:", err);
+        alert("Contatto non trovato");
+      }
+    });
   }
 
   salvaModifiche() {
+    // Note: The ID in the first input field dictates which contact profile is updated
+    if (!this.idDaCercare) {
+      alert("Inserisci un ID valido");
+      return;
+    }
+
     const contattoAggiornato = {
+      id: this.idDaCercare,
       nome: this.nome,
       cognome: this.cognome,
-      numTelefono: this.numTelefono,
+      telefono: this.numTelefono,
       email: this.email
     };
 
-    console.log('Contatto aggiornato:', contattoAggiornato);
+    this.service.modificaContatto(this.idDaCercare, contattoAggiornato).subscribe({
+      next: () => alert("Contatto modificato con successo"),
+      error: () => alert("Errore durante la modifica")
+    });
   }
 }

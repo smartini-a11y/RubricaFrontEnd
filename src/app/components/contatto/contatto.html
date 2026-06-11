@@ -1,9 +1,18 @@
-<h1>Dettagli Contatto</h1>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <title>Contatto</title>
+  <link rel="stylesheet" href="contatto.css">
+</head>
+<body>
+
+  <h1>Dettagli Contatto</h1>
   <button type="button" class="btn-ritorno" >
     <a 
       href="../" style="text-decoration: none;color: black;">Torna alla rubrica
     </a>  
-  </button>
+</button>
   
   
   <div class="contatto-dettagli">
@@ -14,32 +23,34 @@
   </div>
 
 
+<div>
+  <p>Aggiungi familiare:</p>
+
   <div>
-    <p>Aggiungi familiare:</p>
-    
-    <div>
-      <label>Scegli un contatto dalla rubrica:</label>
-      
-      <select id="condivisione" name="condivisione">
-        <option value="" disabled selected>-- Seleziona un familiare --</option>
-         <option
-            *ngFor="let item of listaContatti"
-            [value]="item.id"
-            [hidden]="!checkContatto(item)">
-            {{ item.nome }} {{ item.cognome }}
+    <label for="condivisione">Scegli un contatto dalla rubrica:</label>
+
+    <select id="condivisione" name="condivisione" #selectCondivisione>
+      <option value="" disabled selected>-- Seleziona un familiare --</option>
+
+      <ng-container *ngFor="let item of listaContatti">
+        <option *ngIf="checkContatto(item)" [value]="item.id">
+          {{ item.nome }} {{ item.cognome }}
         </option>
-      </select>
-    </div>
-    
-    <button type="button" (click)="condividiContatto()">Aggiungi famigliare</button>
-    <h3>Familiari Selezionati</h3>
+      </ng-container>
+    </select>
+  </div>
+
+  <button type="button" (click)="condividiContatto(+selectCondivisione.value)">Aggiungi familiare</button>
+
+  <h3>Familiari Selezionati</h3>
 
     <div *ngFor="let f of familiariSelezionati" class="familiare-item">
-      <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
+    <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
     
       <div class="familiare-actions">
           <a href="/contatto/{{ f.id }}" class="btn-info-custom">info</a>
           <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">Elimina</button>
       </div>
     </div>
-  </div>
+  </body>
+</html>

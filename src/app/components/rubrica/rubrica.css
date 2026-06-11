@@ -21,3 +21,18 @@ h1 {
   background-color: #ffcc00;
   transform: scale(1.05);
 }
+.riga-contatto {
+  display: flex;        
+  align-items: center;  
+  gap: 11px;            
+  width: 100%;         
+
+
+
+  flex-grow: 1;        
+
+
+app-btnmodifica {
+  flex-shrink: 0;
+}
+}

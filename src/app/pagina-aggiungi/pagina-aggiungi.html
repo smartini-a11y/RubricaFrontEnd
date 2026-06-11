@@ -3,7 +3,7 @@
   <h2>Inserisci i dati del contatto</h2>
 
   <form>
-
+<div class="modifica-form">
     <label>Nome</label>
     <input type="text" [(ngModel)]="nome" name="nome">
 
@@ -17,10 +17,10 @@
     <input type="email" [(ngModel)]="email" name="email">
 
     <!-- Bottone Salva sotto a tutto -->
-    <button class="btn-salva" (click)="aggiungiContatto()">
+    <button class="btn-salva" >
       Salva
     </button>
-
+</div>
   </form>
 
 </div>
