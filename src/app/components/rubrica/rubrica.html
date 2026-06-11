@@ -9,11 +9,15 @@
   <h1>Contatti</h1>
   <app-btnaggiungi-fam></app-btnaggiungi-fam>
 <div class="rubrica-container">
-  <div *ngFor="let item of listaContatti" class="contatto">
+  <div *ngFor="let item of listaContatti" class="riga-contatto">
+    
     <app-btn-contatto [c]="item"></app-btn-contatto>
+
+    <app-btnmodifica [c]="item"></app-btnmodifica>
+
   </div>
 </div>
   
-  <app-btnmodifica></app-btnmodifica>
+  
 </body>
 </html>

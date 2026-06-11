@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import{RouterLink} from '@angular/router';
+import { Router } from '@angular/router';
 
 import { BTNaggiungiFam } from "../../btnaggiungi-fam/btnaggiungi-fam";
 import { BTNmodifica } from "../../btnmodifica/btnmodifica";
@@ -33,6 +34,30 @@ interface Contatto {
 
   ];
 
+constructor(private router: Router){}
+ngOnInit(): void {
+    const state = window.history.state;
+
+    if (state && state.contatto) {
+      const updatedContact = state.contatto;
+
+      // Find by checking both possible phone key names just in case
+      const index = this.listaContatti.findIndex(
+        c => c.telefono === updatedContact.telefono || c.telefono === updatedContact.numTelefono
+      );
+
+      if (index !== -1) {
+        // Overwrite the existing contact cleanly
+        this.listaContatti[index] = {
+          ...this.listaContatti[index], // Keeps original ID intact safely
+          nome: updatedContact.nome,
+          cognome: updatedContact.cognome,
+          telefono: updatedContact.telefono, // Stored safely as 'telefono'
+          email: updatedContact.email
+        };
+      }
+    }
+  }
   nuovoNome: string = '';
   nuovoCognome: string = '';
   nuovoTelefono: string = '';
@@ -61,7 +86,7 @@ interface Contatto {
     this.listaContatti.splice(index, 1);
   }
 
-  modificaContatto(index: number, contatto: Contatto) {
+  modicaContatto(index: number, contatto: Contatto) {
     this.listaContatti[index] = contatto;
   }
 }

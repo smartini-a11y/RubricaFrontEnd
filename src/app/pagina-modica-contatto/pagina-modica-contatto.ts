@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
-  selector: 'app-paginamodifica',
+  selector: 'app-pagina-modica',
   standalone: true,
   imports: [FormsModule],
   templateUrl: './pagina-modica-contatto.html',
   styleUrls: ['./pagina-modica-contatto.css']
 })
-export class PaginaModificaComponent {
+export class PaginaModicaComponent implements OnInit {
 
   // FASE 1: dati di ricerca
   cercaNome: string = '';
@@ -25,14 +27,26 @@ export class PaginaModificaComponent {
   // flag per mostrare la seconda form
   mostraSecondaForm: boolean = false;
 
-  // prende i dati del primo form e li copia nel secondo
-  cercaContatto() {
+
+  
+  constructor(private router: Router) {}
+
+ngOnInit(): void {
+    const state = window.history.state;
+
+    if (state && state.contatto) {
+      // Must map straight to the template ngModel properties!
+      this.nome = state.contatto.nome;
+      this.cognome = state.contatto.cognome;
+      this.numTelefono = state.contatto.telefono; // 'telefono' matches list object format
+      this.email = state.contatto.email;
+    }
+  }
+ cercaContatto() {
     this.nome = this.cercaNome;
     this.cognome = this.cercaCognome;
     this.numTelefono = this.cercaNumTelefono;
     this.email = this.cercaEmail;
-
-    // per ora l’email la lasci vuota o la compili a mano
     this.mostraSecondaForm = true;
   }
 
@@ -40,10 +54,12 @@ export class PaginaModificaComponent {
     const contattoAggiornato = {
       nome: this.nome,
       cognome: this.cognome,
-      numTelefono: this.numTelefono,
+      telefono: this.numTelefono,
       email: this.email
     };
 
-    console.log('Contatto aggiornato:', contattoAggiornato);
+    this.router.navigate(['/'], {
+      state: { contatto: contattoAggiornato }
+    });
   }
 }

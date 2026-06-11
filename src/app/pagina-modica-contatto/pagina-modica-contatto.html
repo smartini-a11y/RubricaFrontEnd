@@ -4,19 +4,19 @@
  <form>
 <div class="modifica-contatto">
     <label>Nome</label>
-    <input type="text" [(ngModel)]="nome" name="nome">
+    <input type="text" name="nome" [(ngModel)]="nome">
 
     <label>Cognome</label>
-    <input type="text" [(ngModel)]="cognome" name="cognome">
+    <input type="text" name="cognome" [(ngModel)]="cognome">
 
     <label>Numero di telefono</label>
-    <input type="text" [(ngModel)]="numTelefono" name="numTelefono">
+    <input type="text" name="numTelefono" [(ngModel)]="numTelefono">
 
     <label>Email</label>
-    <input type="text" [(ngModel)]="email" name="numTelefono">
+    <input type="text" name="email" [(ngModel)]="email">
 
 </div>
-    <button class="btn-modifica" >
+    <button class="btn-modifica" (click)="salvaModifiche()">
       Salva
     </button>
 

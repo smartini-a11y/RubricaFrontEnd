@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,11 +11,20 @@ import { CommonModule } from '@angular/common';
   styleUrl: './btn-contatto.css'
 })
 export class BtnContattoComponent {
-  // 👇 This tells Angular that a contact 'c' will be passed into this component!
-  @Input() c!: any; 
+  @Input() c!: any; // Your input property
+
+  constructor(private router: Router) {} // Inject the router here
 
   vaiAlContatto(): void {
-    // Your navigation or click logic goes here...
-    console.log('Selected contact:', this.c);
+   
+    this.router.navigate(['/contatto'], { 
+      state: { contatto: this.c } 
+    });
+  }
+  vaiAModifica(): void {
+   
+    this.router.navigate(['/pagina-modifica-contatto'], { 
+      state: { contatto: this.c } 
+    });
   }
 }

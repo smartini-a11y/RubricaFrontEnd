@@ -2,7 +2,7 @@
   background-color: #ffd500;
   color: #333;
   border: none;
-  padding: 12px 20px;
+  padding: 6px 10px;
   font-size: 16px;
   font-weight: 600;
   border-radius: 8px;
@@ -18,12 +18,13 @@
   background-color: #ffd500;
   color: #333;
   border: none;
-  padding: 12px 20px;
+  padding: 3px 8px;
   font-size: 16px;
   font-weight: 600;
   border-radius: 25px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
+  transform: translateY(-5px);
 }
 
 .btn-modifica:hover {
