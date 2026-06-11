@@ -14,6 +14,32 @@
 
 .btn-modifica:hover {
   background-color: #4dabf7;
-  border-color: #1c7ed6;
   transform: translateY(-2px);
+}
+.modifica-contatto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 30px;
+  margin-top: 20px;
+  width:fit-content
+}
+.btn-modifica {
+  background-color: #74c0fc;
+  color: #1c1c1c;
+  border: 1px solid #4dabf7;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  text-align: center;
+  padding: 5px 15px;
+  margin-left: 0px;
+  margin-top: 20px;
+}
+input{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }

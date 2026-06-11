@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ContattiAggingiService } from '../servizi/contatti-aggingi'; // <--- CORRETTO
 
 @Component({
   selector: 'app-paginamodifica',
@@ -10,33 +11,43 @@ import { FormsModule } from '@angular/forms';
 })
 export class PaginaModificaComponent {
 
-  // FASE 1: dati di ricerca
-  cercaNome: string = '';
-  cercaCognome: string = '';
-  cercaNumTelefono: string = '';
-  cercaEmail: string = '';
+  idDaCercare: number = 59;
 
-  // FASE 2: dati da modificare
   nome: string = '';
   cognome: string = '';
   numTelefono: string = '';
   email: string = '';
 
-  // flag per mostrare la seconda form
-  mostraSecondaForm: boolean = false;
+  mostraSecondaForm: boolean = true;
 
-  // prende i dati del primo form e li copia nel secondo
-  cercaContatto() {
-    this.nome = this.cercaNome;
-    this.cognome = this.cercaCognome;
-    this.numTelefono = this.cercaNumTelefono;
-    this.email = this.cercaEmail;
+  constructor(private service: ContattiAggingiService) {}
 
-    // per ora l’email la lasci vuota o la compili a mano
-    this.mostraSecondaForm = true;
+
+    cercaContatto() {
+
+   this.service.getContatto(59).subscribe({
+  next: (contatto) => {
+    console.log("Contatto ricevuto:", contatto);
+
+    this.nome = contatto.Nome;
+    this.cognome = contatto.Cognome;
+    this.numTelefono = contatto.NumTelefono;
+    this.email = contatto.Email;
+
+ //   this.mostraSecondaForm = true;
+  },
+  error: (err) => {
+    console.error("Errore API:", err);
+    alert("Contatto non trovato");
+  }
+});
+
   }
 
+
   salvaModifiche() {
+    if (!this.idDaCercare) return;
+
     const contattoAggiornato = {
       nome: this.nome,
       cognome: this.cognome,
@@ -44,6 +55,9 @@ export class PaginaModificaComponent {
       email: this.email
     };
 
-    console.log('Contatto aggiornato:', contattoAggiornato);
+    this.service.modificaContatto(this.idDaCercare, contattoAggiornato).subscribe({
+      next: () => alert("Contatto modificato con successo"),
+      error: () => alert("Errore durante la modifica")
+    });
   }
 }
