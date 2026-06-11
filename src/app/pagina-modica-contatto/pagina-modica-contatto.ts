@@ -27,7 +27,7 @@ cercaContatto() {
     alert("Inserisci un ID valido");
     return;
   }
-
+//ddddddd
 //viene fatta la chiamata che restitusice il contatto
   this.service.getContatto(this.idDaCercare).subscribe({
     next: (contatto) => {
@@ -59,7 +59,7 @@ cercaContatto() {
       numTelefono: this.numTelefono,
       email: this.email
     };
-    
+
 
     //controlla sempre che l'id non sia stato cambiato in 0
     //ATTENZIONE VFAR CAPIRE CHE L'ID CHE VIENE MESSO NEL PRIMO CAMPO DICE ACNHE QUALE CONTATTO MODIFICA
