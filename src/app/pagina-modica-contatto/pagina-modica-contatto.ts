@@ -59,9 +59,10 @@ cercaContatto() {
       numTelefono: this.numTelefono,
       email: this.email
     };
+    
 
     //controlla sempre che l'id non sia stato cambiato in 0
-    //ATTENZIONE VFAR CAPIRE CHE L'ID CHE VIENE MESSO NEL PRIMO CAMPO DICE ACNHE QUALE CONTATTO MODIFICA 
+    //ATTENZIONE VFAR CAPIRE CHE L'ID CHE VIENE MESSO NEL PRIMO CAMPO DICE ACNHE QUALE CONTATTO MODIFICA
     if (!this.idDaCercare) {
   alert("Inserisci un ID valido");
   return;
