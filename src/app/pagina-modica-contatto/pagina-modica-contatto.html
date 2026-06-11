@@ -1,5 +1,22 @@
 <div class="form-container">
 
+  <h2>Cerca contatto da modificare</h2>
+
+  <!-- FORM 1: CERCA PER ID -->
+  <form>
+
+    <label>ID del contatto</label>
+    <input type="number" [(ngModel)]="idDaCercare" name="idDaCercare">
+
+    <button class="btn-cerca" type="button" (click)="cercaContatto()">
+      Cerca
+    </button>
+
+  </form>
+
+ <h2>Modifica contatto</h2>
+
+  <form>
   <h2>Modifica Contatto </h2>
  <form>
 <div class="modifica-contatto">
@@ -13,6 +30,12 @@
     <input type="text" [(ngModel)]="numTelefono" name="numTelefono">
 
     <label>Email</label>
+
+    <input type="text" [(ngModel)]="email" name="email">
+
+    <button class="btn-cerca" type="button" (click)="cercaContatto()">
+      Salva modifiche
+
     <input type="text" [(ngModel)]="email" name="numTelefono">
 
 </div>
@@ -23,5 +46,13 @@
   </form>
 
 
+
+
+
+
 </div>
+
+
+
+
 
