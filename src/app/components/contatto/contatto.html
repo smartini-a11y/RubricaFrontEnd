@@ -1,51 +1,48 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="utf-8">
-  <title>Contatto</title>
-  <link rel="stylesheet" href="contatto.css">
-</head>
-<body>
+<h1>Dettagli Contatto</h1>
 
-  <h1>Dettagli Contatto</h1>
-  
-  <div class="contatto-dettagli">
-    <p><strong>Nome:</strong> {{ c.nome }}</p>
-    <p><strong>Cognome:</strong> {{ c.cognome }}</p>
-    <p><strong>Telefono:</strong> {{ c.telefono }}</p>
-    <p><strong>Email:</strong> {{ c.email }}</p>
-  </div>
+<button type="button" class="btn-ritorno">
+  <a routerLink="/" style="text-decoration: none; color: black;">
+    Torna alla rubrica
+  </a>
+</button>
+
+<div class="contatto-dettagli">
+  <p><strong>Nome:</strong> {{ c.nome }}</p>
+  <p><strong>Cognome:</strong> {{ c.cognome }}</p>
+  <p><strong>Telefono:</strong> {{ c.telefono }}</p>
+  <p><strong>Email:</strong> {{ c.email }}</p>
+</div>
+
+<div>
+  <p>Aggiungi familiare:</p>
 
   <div>
-    <p>Aggiungi familiare:</p>
-    <div>
-      <label for="condivisione">Scegli un contatto dalla rubrica:</label>
-      
-      <select id="condivisione" name="condivisione">
-        <option value="">-- Seleziona un familiare --</option>
-        <option *ngFor="let contatto of listaContatti" [value]="contatto.email">
-          {{ contatto.nome }} {{ contatto.cognome }}
-        </option>
-      </select>
+    <label>Scegli un contatto dalla rubrica:</label>
+
+    <select id="condivisione" name="condivisione">
+      <option value="" disabled selected>-- Seleziona un familiare --</option>
+
+      <option
+        *ngFor="let item of listaContatti"
+        [value]="item.id"
+        [hidden]="!checkContatto(item)">
+        {{ item.nome }} {{ item.cognome }}
+      </option>
+    </select>
+  </div>
+
+  <button type="button" (click)="condividiContatto()">Aggiungi familiare</button>
+
+  <h3>Familiari Selezionati</h3>
+
+  <div *ngFor="let f of familiariSelezionati" class="familiare-item">
+    <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
+
+    <div class="familiare-actions">
+      <a [routerLink]="['/contatto', f.id]" class="btn-info-custom">info</a>
+      <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">
+        Elimina
+      </button>
     </div>
   </div>
-
-  <div>
-    <button type="button" onclick="condividiContatto()">Condividi Contatto</button>
-  </div>
-
-</body>
-<script>
-    function condividiContatto()
-    {
-        const selectElement = document.getElementById('condivisione');
-        const selectedEmail = selectElement.value;
-        
-        if (selectedEmail) {
-            alert(`Contatto condiviso con: ${selectedEmail}`);
-        } else {
-            alert('Seleziona un familiare per condividere il contatto.');
-        }
-    }
-</script>
-</html>
+</div>

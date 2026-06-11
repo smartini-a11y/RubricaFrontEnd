@@ -17,7 +17,9 @@
  <h2>Modifica contatto</h2>
 
   <form>
-
+  <h2>Modifica Contatto </h2>
+ <form>
+<div class="modifica-contatto">
     <label>Nome</label>
     <input type="text" [(ngModel)]="nome" name="nome">
 
@@ -28,10 +30,17 @@
     <input type="text" [(ngModel)]="numTelefono" name="numTelefono">
 
     <label>Email</label>
+
     <input type="text" [(ngModel)]="email" name="email">
 
     <button class="btn-cerca" type="button" (click)="cercaContatto()">
       Salva modifiche
+
+    <input type="text" [(ngModel)]="email" name="numTelefono">
+
+</div>
+    <button class="btn-modifica" >
+      Salva
     </button>
 
   </form>

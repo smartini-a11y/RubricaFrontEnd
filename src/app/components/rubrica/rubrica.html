@@ -7,17 +7,19 @@
 </head>
 <body>
   <h1>Contatti</h1>
+  <app-btnaggiungi-fam></app-btnaggiungi-fam>
 <div class="rubrica-container">
+
   <div *ngFor="let c of listaContatti" class="contatto">
-    <a [routerLink]="['/contatto']"
-       [queryParams]="{ nome: c.nome, cognome: c.cognome, telefono: c.telefono, email: c.email }"
+    <a [routerLink]="['/contatto', c.id]" 
+       [queryParams]="{ id: c.id}" 
        [state]="{ tuttiIContatti: listaContatti }"
        style="text-decoration: none; color: black;">
        {{ c.nome }} {{ c.cognome }}
     </a>
   </div>
 </div>
-  <app-btnaggiungi-fam></app-btnaggiungi-fam>
+  
   <app-btnmodifica></app-btnmodifica>
 </body>
 </html>
