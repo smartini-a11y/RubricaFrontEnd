@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import{RouterLink} from '@angular/router';
+
+import { BTNaggiungiFam } from "../../btnaggiungi-fam/btnaggiungi-fam";
+import { BTNmodifica } from "../../btnmodifica/btnmodifica";
+import { BtnContattoComponent } from "../../btn-contatto/btn-contatto";
+
 interface Contatto {
   id: number;
   nome: string;
@@ -15,15 +20,17 @@ interface Contatto {
   standalone: true,
   templateUrl: './rubrica.html',
   styleUrl: './rubrica.css',
-  imports: [CommonModule, FormsModule,RouterLink]
+  imports: [CommonModule, FormsModule, RouterLink, BTNaggiungiFam, BTNmodifica, BtnContattoComponent]
 })
 //gestisco la lista che creo in una classe e faccio i metodi per aggiungere, modificare e cancellare i contatti
  export class RubricaComponent {
   listaContatti: Contatto[] = [
+
     { id: 1, nome: 'Mario', cognome: 'Rossi', telefono: '333123456', email: 'mario.rossi@email.com' },
     { id: 2, nome: 'Luigi', cognome: 'Verdi', telefono: '333987654', email: 'luigi.verdi@email.com' },
     { id: 3, nome: 'Giulia', cognome: 'Bonani', telefono: '333134567', email: 'giulia.bonani@email.com' },
     { id: 4, nome: 'Francesca', cognome: 'Bianchi', telefono: '333765432', email: 'francesca.bianchi@email.com' }
+
   ];
 
   nuovoNome: string = '';
@@ -56,6 +63,5 @@ interface Contatto {
 
   modificaContatto(index: number, contatto: Contatto) {
     this.listaContatti[index] = contatto;
-  } 
-
+  }
 }

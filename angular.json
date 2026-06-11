@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "rubricaFE": {
+    "parteFrontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "rubricaFE:build:production"
+              "buildTarget": "parteFrontend:build:production"
             },
             "development": {
-              "buildTarget": "rubricaFE:build:development"
+              "buildTarget": "parteFrontend:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,0 +1,56 @@
+.contenitore-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #fff8b3;
+  border-radius: 12px;
+  border: 2px solid #e0c200;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-contatto {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: 600;
+  color: #444;
+}
+
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #c9b200;
+  font-size: 15px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ffcc00;
+  box-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
+}
+
+.btn-salva {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #ffd500;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.btn-salva:hover {
+  background-color: #ffcc00;
+  transform: scale(1.05);
+}

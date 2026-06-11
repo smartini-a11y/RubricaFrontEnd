@@ -7,7 +7,9 @@
 </head>
 <body>
   <h1>Contatti</h1>
+  <app-btnaggiungi-fam></app-btnaggiungi-fam>
 <div class="rubrica-container">
+
   <div *ngFor="let c of listaContatti" class="contatto">
     <a [routerLink]="['/contatto', c.id]" 
        [queryParams]="{ id: c.id}" 
@@ -17,5 +19,7 @@
     </a>
   </div>
 </div>
+  
+  <app-btnmodifica></app-btnmodifica>
 </body>
 </html>
