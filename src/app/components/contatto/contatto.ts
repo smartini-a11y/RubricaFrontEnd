@@ -19,7 +19,7 @@ export class ContattoComponent implements OnInit {
   // Variabile d'appoggio per il select per evitare getElementById
   idSelezionato: string = '';
 
-  constructor(private route: ActivatedRoute,private router: Router,) 
+  constructor(private route: ActivatedRoute,private router: Router) 
   {
     // Recuperiamo la lista che arriva dall'altra pagina
     const navigazione = this.router.getCurrentNavigation();
@@ -35,9 +35,12 @@ export class ContattoComponent implements OnInit {
     this.route.paramMap.subscribe(params => {const id = Number(params.get('id'));
     // Trova il contatto corrispondente all'ID e assegnalo a 'c'
     this.c = this.listaContatti.find(c => Number(c.id) === id);});
+    this.familiariSelezionati = [];
+    this.messaggio = '';
+    
   }
 
-  // Controlla se l'item della lista è il contatto corrente (per escluderlo dai familiari selezionabili)
+  // Controlla se l'item della lista è il contatto corrente 
   checkContatto(item: any): boolean {
     if (!this.c) return true;
     return item.id !== this.c.id; // controllo tramite id
