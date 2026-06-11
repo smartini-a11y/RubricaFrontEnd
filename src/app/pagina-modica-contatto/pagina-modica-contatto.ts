@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BTNSalva } from '../btnsalva/btnsalva';
 
 @Component({
   selector: 'app-paginamodifica',
   standalone: true,
-  imports: [FormsModule, BTNSalva],
+  imports: [FormsModule],
   templateUrl: './pagina-modica-contatto.html',
   styleUrls: ['./pagina-modica-contatto.css']
 })

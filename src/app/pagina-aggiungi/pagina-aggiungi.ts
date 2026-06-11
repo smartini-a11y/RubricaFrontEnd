@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BTNSalva } from '../btnsalva/btnsalva';
 
 @Component({
   selector: 'app-paginaaggiungi',
   standalone: true,
-  imports: [FormsModule, BTNSalva],
+  imports: [FormsModule],
   templateUrl: './pagina-aggiungi.html',
   styleUrls: ['./pagina-aggiungi.css']
 })
