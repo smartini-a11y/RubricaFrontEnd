@@ -8,7 +8,11 @@
 <body>
 
   <h1>Dettagli Contatto</h1>
-  <button type="button"><a href="../"style="text-decoration: none;color: black;">Torna alla rubrica</a></button>
+  <button type="button" class="btn-ritorno" >
+    <a 
+      href="../" style="text-decoration: none;color: black;">Torna alla rubrica
+    </a>  
+</button>
   
   
   <div class="contatto-dettagli">
@@ -35,14 +39,13 @@
     <button type="button" (click)="condividiContatto()">Aggiungi famigliare</button>
     <h3>Familiari Selezionati</h3>
 
-    <div *ngFor="let f of familiariSelezionati">
-        {{ f.nome }} {{ f.cognome }}
-
-      <button (click)="vediDettaglio(f)">Info</button>
-      <button (click)="rimuoviFamiliare(f)">Elimina</button>
+    <div *ngFor="let f of familiariSelezionati" class="familiare-item">
+    <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
+    
+      <div class="familiare-actions">
+          <a href="/contatto/{{ f.id }}" class="btn-info-custom">info</a>
+          <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">Elimina</button>
+      </div>
     </div>
-
-
-</body>
-
+  </body>
 </html>

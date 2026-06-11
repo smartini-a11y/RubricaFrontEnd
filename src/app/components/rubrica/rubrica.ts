@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import{RouterLink} from '@angular/router';
-
 interface Contatto {
   id: number;
   nome: string;
@@ -58,4 +57,5 @@ interface Contatto {
   modificaContatto(index: number, contatto: Contatto) {
     this.listaContatti[index] = contatto;
   } 
+
 }

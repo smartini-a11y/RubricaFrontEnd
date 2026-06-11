@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'; // <-- Import this
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-contatto',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './contatto.html',
   styleUrl: './contatto.css'
 })
@@ -24,18 +25,13 @@ export class ContattoComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void 
+  {
     // Look at the URL and grab the parameters
-    this.route.queryParams.subscribe(params => {
-      this.c = {
-        id: params['id'],
-        nome: params['nome'],
-        cognome: params['cognome'],
-        telefono: params['telefono'],
-        email: params['email']
-      };
-    });
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    // cerca il contatto con quell'id
+    this.c = this.listaContatti.find(c => Number(c.id) === id);
   }
   
   checkContatto(item: any): boolean {

@@ -4,5 +4,5 @@ import { ContattoComponent } from './components/contatto/contatto';
 
 export const routes: Routes = [
   { path: '', component: RubricaComponent },
-  { path: 'contatto', component: ContattoComponent }
+  { path: 'contatto/:id', component: ContattoComponent }
 ];
