@@ -21,7 +21,7 @@
  <form>
 <div class="modifica-contatto">
     <label>Nome</label>
-    <input type="text" [(ngModel)]="nome" name="nome">
+    <input type="string" [(ngModel)]="nome" name="nome">
 
     <label>Cognome</label>
     <input type="text" [(ngModel)]="cognome" name="cognome">
@@ -33,7 +33,7 @@
 
     <input type="text" [(ngModel)]="email" name="email">
 
-    <button class="btn-cerca" type="button" (click)="cercaContatto()">
+    <button class="btn-cerca" type="button" (click)="salvaModifiche()">
       Salva modifiche
 
     <input type="text" [(ngModel)]="email" name="numTelefono">
