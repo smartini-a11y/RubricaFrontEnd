@@ -9,8 +9,14 @@
   <h1>Contatti</h1>
   <app-btnaggiungi-fam></app-btnaggiungi-fam>
 <div class="rubrica-container">
-  <div *ngFor="let item of listaContatti" class="contatto">
-    <app-btn-contatto [c]="item"></app-btn-contatto>
+
+  <div *ngFor="let c of listaContatti" class="contatto">
+    <a [routerLink]="['/contatto', c.id]" 
+       [queryParams]="{ id: c.id}" 
+       [state]="{ tuttiIContatti: listaContatti }"
+       style="text-decoration: none; color: black;">
+       {{ c.nome }} {{ c.cognome }}
+    </a>
   </div>
 </div>
   

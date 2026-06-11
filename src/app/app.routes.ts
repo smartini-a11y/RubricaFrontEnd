@@ -7,8 +7,8 @@ import { ContattoComponent } from './components/contatto/contatto'
 
 
 export const routes: Routes = [
-  { path: '', component: RubricaComponent },  // pagina iniziale
-  { path: '', component: ContattoComponent},
+  { path: '', component: RubricaComponent },
+  { path: 'contatto/:id', component: ContattoComponent }
   // pagina aggiungi
   { path: 'pagina-aggiungi', component: PaginaAggiungiComponent },
 
@@ -16,4 +16,5 @@ export const routes: Routes = [
   { path: 'pagina-modica-contatto', component: PaginaModificaComponent },
 
   // pagina salva
+
 ];
