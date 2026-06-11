@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ContattiAggingiService } from '../servizi/contatti-aggingi';
 
 @Component({
   selector: 'app-paginaaggiungi',
@@ -12,22 +13,36 @@ export class PaginaAggiungiComponent {
 
   nome: string = '';
   cognome: string = '';
-  numTelefono: string = '';
   email: string = '';
+  numTelefono: string = '';
 
-salvaContatto() {
-  console.log("Contatto salvato!");
-  console.log({
-    nome: this.nome,
-    cognome: this.cognome,
-    numTelefono: this.numTelefono,
-    email: this.email
-  });
-  alert("fatto");
-}
+  constructor(private service: ContattiAggingiService) {}
+
+  aggiungiContatto() {
+
+  const body = {
+  nome: this.nome,
+  cognome: this.cognome,
+  email: this.email,
+  numTelefono: this.numTelefono   // <-- DEVE CHIAMARSI COSÌ
+  };
 
 
-    // Qui potrai aggiungere la POST API
-    // this.http.post('URL', { nome, cognome, telefono, email }).subscribe(...)
+    this.service.aggiungiContatto(body).subscribe({
+      next: (res) => {
+        console.log("Risposta API:", res);
+        alert("Contatto aggiunto con successo");
+
+        this.nome = '';
+        this.cognome = '';
+        this.email = '';
+        this.numTelefono = '';
+      },
+
+      error: (err) => {
+        console.error("Errore API:", err);
+        alert("Errore API: " + err.message);
+      }
+    });
   }
-
+}
