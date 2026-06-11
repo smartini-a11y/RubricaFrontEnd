@@ -1,35 +1,22 @@
 <div class="form-container">
 
-  <h2>dati del contatto da modificare </h2>
+  <h2>Cerca contatto da modificare</h2>
 
-
-  //form iniziale che serve per mettere i dati del contatto da cercare
+  <!-- FORM 1: CERCA PER ID -->
   <form>
 
-    <label>Nome</label>
-    <input type="text" [(ngModel)]="cercaNome" name="nome">
+    <label>ID del contatto</label>
+    <input type="number" [(ngModel)]="idDaCercare" name="idDaCercare">
 
-    <label>Cognome</label>
-    <input type="text" [(ngModel)]="cercaCognome" name="cognome">
-
-    <label>Numero di telefono</label>
-    <input type="text" [(ngModel)]="cercaNumTelefono" name="numTelefono">
-
-    <label>Email</label>
-    <input type="text" [(ngModel)]="cercaEmail" name="numTelefono">
-
-
-    <!-- Bottone Salva sotto a tutto -->
-    <button class="btn-cerca" (click)="cercaContatto()">
+    <button class="btn-cerca" type="button" (click)="cercaContatto()">
       Cerca
     </button>
 
   </form>
-</div>
-//seconda form per modificare i dati del contatto
-<div>
 
- <form>
+ <h2>Modifica contatto</h2>
+
+  <form>
 
     <label>Nome</label>
     <input type="text" [(ngModel)]="nome" name="nome">
@@ -41,15 +28,22 @@
     <input type="text" [(ngModel)]="numTelefono" name="numTelefono">
 
     <label>Email</label>
-    <input type="text" [(ngModel)]="email" name="numTelefono">
+    <input type="text" [(ngModel)]="email" name="email">
 
-
-    <button class="btn-salva" (click)="salvaModifiche()">
-      Cerca
+    <button class="btn-cerca" type="button" (click)="cercaContatto()">
+      Salva modifiche
     </button>
 
   </form>
 
 
+
+
+
+
 </div>
+
+
+
+
 
