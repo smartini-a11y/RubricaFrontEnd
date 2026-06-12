@@ -1,8 +1,19 @@
-<h1>Dettagli Contatto</h1>
-<button type="button" class="btn-ritorno" (click)="location.back()">
-  Torna indietro
-</button>
-<app-btnmodifica [id]="c?.id"></app-btnmodifica>
+<div class="header-row">
+  <h1>Dettagli Contatto</h1>
+  
+  <div class="button-group">
+    //(click)="location.back()
+    <app-btnmodifica [id]="c?.id"></app-btnmodifica><button type="button" class="btn-elimina" (click)="eliminaContatto()">❌</button><app-btnindietro></app-btnindietro>
+  </div>
+</div>
+    
+  <div class="contatto-dettagli">
+    <p><strong>Nome:</strong> {{ c.nome }}</p>
+    <p><strong>Cognome:</strong> {{ c.cognome }}</p>
+    <p><strong>Telefono:</strong> {{ c.Numtelefono }}</p>
+    <p><strong>Email:</strong> {{ c.email }}</p>
+  </div>
+
 
 <div *ngIf="c as contatto" class="contatto-dettagli">
   <div class="campo">

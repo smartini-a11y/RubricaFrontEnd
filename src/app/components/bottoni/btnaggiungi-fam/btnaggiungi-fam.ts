@@ -11,6 +11,9 @@ export class BTNaggiungiFam {
 
   constructor(private router: Router) {}
 
+  /**
+   * Porta l'utente alla pagina "aggiungi"
+   */
   vaiAllaAggiungi() {
   this.router.navigate(['/pagina-aggiungi']);
 }

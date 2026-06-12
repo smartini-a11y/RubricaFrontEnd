@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ContattiAggingiService {
 
   private apiUrl = 'http://192.168.124.18:5000/api/Contatti';
@@ -58,7 +59,11 @@ export class ContattiAggingiService {
     return this.http.get<any[]>(`${this.apiUrlFM}/${idContatto}/${idFamigliare}`);
   }
 
-  // GET - Lista familiari di un contatto da vedere
+  /**
+   * La funzione restituisce tutti i familiari del contatto con quell'id
+   * @param idContatto 
+   * @returns Array di object 
+   */
  getFamigliari(idContatto: number): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrlFM}/${idContatto}`);
 }

@@ -3,6 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
+
+import { Btnelimina } from '../../bottoni/btnelimina/btnelimina';
+import { Btnindietro } from '../../bottoni/btnindietro/btnindietro';
+import {ContattiAggingiService} from '../../../servizi/api'
 import { ContattiAggingiService } from '../../../servizi/api';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,7 +22,7 @@ interface Contatto {
 @Component({
   selector: 'app-contatto',
   standalone: true,
-  imports: [CommonModule, FormsModule, BTNmodifica],
+  imports: [CommonModule, RouterModule,Btnindietro, BTNmodifica,Btnelimina,FormsModule, FormsModule, BTNmodifica],
   templateUrl: './contatto.html',
   styleUrl: './contatto.css',
 })
@@ -141,12 +145,23 @@ aggiungiFamigliare() {
     alert("Questo contatto è già un familiare.");
     return;
   }
+  
+eliminaContatto(): void {
+    if (!this.c) return;
 
+    const conferma = confirm("Sei sicuro di voler eliminare "+this.c.nome +" "+this.c.cognome+"?");
+    if (!conferma) return;
 
-
-
-
-
+    this.api.rimuoviContatto(this.c.id).subscribe({
+      next: () => {
+        this.router.navigate([''], { relativeTo: this.route });
+      },
+      error: (err) => {
+        console.error('Errore durante eliminazione:', err);
+        alert('Errore durante l\'eliminazione del contatto.');
+      }
+    });
+  }
   this.service.aggiungiFamigliare(this.c!.id, this.idContattoSelezionato!).subscribe({
     next: () => {
       alert("Contatto aggiunto come familiare");
@@ -171,10 +186,5 @@ aggiungiFamigliare() {
       }
     }
   });
-
-
-
-
 }
-
 }
