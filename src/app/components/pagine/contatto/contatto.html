@@ -3,15 +3,15 @@
   
   <div class="button-group">
     //(click)="location.back()
-    <app-btnmodifica [id]="c?.id"></app-btnmodifica><button type="button" class="btn-elimina" (click)="eliminaContatto()">❌</button><app-btnindietro></app-btnindietro>
+    <app-btnmodifica [id]="c?.id"></app-btnmodifica><button type="button" class="btn-elimina" (click)="eliminaContatto()">❌</button> <app-btnindietro></app-btnindietro>
   </div>
 </div>
     
   <div class="contatto-dettagli">
-    <p><strong>Nome:</strong> {{ c.nome }}</p>
-    <p><strong>Cognome:</strong> {{ c.cognome }}</p>
-    <p><strong>Telefono:</strong> {{ c.Numtelefono }}</p>
-    <p><strong>Email:</strong> {{ c.email }}</p>
+    <p><strong>Nome:</strong> {{ c?.nome }}</p>
+    <p><strong>Cognome:</strong> {{ c?.cognome }}</p>
+    <p><strong>Telefono:</strong> {{ c?.numTelefono }}</p>
+    <p><strong>Email:</strong> {{ c?.email }}</p>
   </div>
 
 
