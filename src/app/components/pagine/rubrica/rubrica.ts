@@ -5,7 +5,6 @@ import{RouterLink} from '@angular/router';
 
 import { BTNaggiungiFam } from "../../bottoni/btnaggiungi-fam/btnaggiungi-fam";
 import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
-import { BtnContattoComponent } from "../../bottoni/btn-contatto/btn-contatto";
 
 import { ContattiAggingiService } from '../../../servizi/api';
 import { ChangeDetectorRef } from '@angular/core';
@@ -15,7 +14,7 @@ interface Contatto {
   nome: string;
   cognome: string;
   email: string;
-  Numtelefono: string;
+  numTelefono: string;   // <-- CORRETTO
 }
 
 @Component({
@@ -23,19 +22,20 @@ interface Contatto {
   standalone: true,
   templateUrl: './rubrica.html',
   styleUrl: './rubrica.css',
-  imports: [CommonModule, FormsModule, RouterLink, BTNaggiungiFam, BTNmodifica, BtnContattoComponent]
+  imports: [CommonModule, FormsModule, RouterLink, BTNaggiungiFam]
 })
 //gestisco la lista che creo in una classe e faccio i metodi per aggiungere, modificare e cancellare i contatti
 export class RubricaComponent {
-  
+
   listaContatti: Contatto[] = [];
 
+  //ciclo tutti i contatti
   constructor(private service: ContattiAggingiService,  private cdr: ChangeDetectorRef) {}
   ngOnInit(): void {
     console.log('INIT');
     this.service.getContatti().subscribe({
       next: (data) => {
-        this.listaContatti = data; 
+        this.listaContatti = data;
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -43,36 +43,5 @@ export class RubricaComponent {
       }
     });
   }
-  
-  nuovoNome: string = '';
-  nuovoCognome: string = '';
-  nuovoTelefono: string = '';
-  nuovaEmail: string = '';
-  ultimoId= 100;
 
-  aggiungiContatto() 
-  {
-    if (this.nuovoNome && this.nuovoCognome && this.nuovoTelefono && this.nuovaEmail) {
-      this.listaContatti.push
-      ({
-        id: this.ultimoId++,
-        nome: this.nuovoNome,
-        cognome: this.nuovoCognome,
-        email: this.nuovaEmail,
-        Numtelefono: this.nuovoTelefono
-      });
-      this.nuovoNome = '';
-      this.nuovoCognome = '';
-      this.nuovoTelefono = '';
-      this.nuovaEmail = '';
-    }
-  }
-
-  eliminaContatto(index: number) {
-    this.listaContatti.splice(index, 1);
-  }
-
-  modicaContatto(index: number, contatto: Contatto) {
-    this.listaContatti[index] = contatto;
-  }
 }

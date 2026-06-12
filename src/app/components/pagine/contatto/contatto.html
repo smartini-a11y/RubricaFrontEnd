@@ -1,46 +1,58 @@
 <h1>Dettagli Contatto</h1>
-  <button type="button" class="btn-ritorno" >
-    <a 
-      href="../" style="text-decoration: none;color: black;">Torna alla rubrica
-    </a>  
+<button type="button" class="btn-ritorno">
+  <a href="../" style="text-decoration: none; color: black;">Torna alla rubrica</a>
 </button>
-  
-<app-btnmodifica></app-btnmodifica>
-  
-  <div class="contatto-dettagli">
-    <p><strong>Nome:</strong> {{ c.nome }}</p>
-    <p><strong>Cognome:</strong> {{ c.cognome }}</p>
-    <p><strong>Telefono:</strong> {{ c.Numtelefono }}</p>
-    <p><strong>Email:</strong> {{ c.email }}</p>
+<app-btnmodifica [id]="c?.id"></app-btnmodifica>
+
+<!-- DETTAGLIO CONTATTO -->
+<div *ngIf="c as contatto" class="contatto-dettagli">
+  <div class="campo">
+    <label><strong>Nome:</strong> {{ contatto.nome }}</label>
   </div>
+  <div class="campo">
+    <label><strong>Cognome:</strong> {{ contatto.cognome }}</label>
+  </div>
+  <div class="campo">
+    <label><strong>Telefono:</strong> {{ contatto.numTelefono }}</label>
+  </div>
+  <div class="campo">
+    <label><strong>Email:</strong> {{ contatto.email }}</label>
+  </div>
+</div>
+<hr>
 
+<!-- SELECT PER AGGIUNGERE FAMILIARE -->
+<div class="sezione-familiare">
+  <label for="seleziona-familiare"><strong>Scegli un contatto da rendere un famigliare:</strong></label>
+  <select id="seleziona-familiare" name="seleziona-familiare" [(ngModel)]="idContattoSelezionato">
+    <option [ngValue]="null" disabled>-- Seleziona un familiare --</option>
+    <option *ngFor="let item of contatti"
+      [value]="item.id"
+      [hidden]="item.id === c?.id || familiari.some(f => f.id === item.id)">
+      {{ item.nome }} {{ item.cognome }}
+    </option>
+  </select>
+  <button type="button" (click)="aggiungiFamigliare()">
+    Rendi un familiare
+  </button>
+</div>
+<hr>
 
+<!-- LISTA FAMILIARI GIÀ ASSOCIATI -->
 <div>
-  <p>Aggiungi familiare:</p>
-
-  <div>
-    <label for="condivisione">Scegli un contatto dalla rubrica:</label>
-
-    <select id="condivisione" name="condivisione" #selectCondivisione>
-      <option value="" disabled selected>-- Seleziona un familiare --</option>
-
-      <ng-container *ngFor="let item of listaContatti">
-        <option *ngIf="checkContatto(item)" [value]="item.id">
-          {{ item.nome }} {{ item.cognome }}
-        </option>
-      </ng-container>
-    </select>
-  </div>
-
-  <button type="button" (click)="condividiContatto(+selectCondivisione.value)">Aggiungi familiare</button>
-
-  <h3>Familiari Selezionati</h3>
-
-    <div *ngFor="let f of familiariSelezionati" class="familiare-item">
-    <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
-    
-      <div class="familiare-actions">
-          <a href="/contatto/{{ f.id }}" class="btn-info-custom">info</a>
-          <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">Elimina</button>
-      </div>
+  <h3>Familiari</h3>
+  <div *ngFor="let f of familiari" class="familiare-item">
+    <span class="familiare-nome">
+      {{ f.nome }} {{ f.cognome }}
+    </span>
+    <div class="familiare-actions">
+<button type="button" class="btn-info-custom" (click)="vaiAlContatto(f.id)">info</button>
+  <button type="button" class="btn-elimina-custom" (click)="eliminaFamigliare(f.id)">
+        Elimina
+      </button>
     </div>
+  </div>
+</div>
+<div *ngIf="familiari.length === 0">
+  <p>Nessun familiare presente.</p>
+</div>
