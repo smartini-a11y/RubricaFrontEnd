@@ -6,12 +6,12 @@
   <form>
 <div class="login-form">
     <label>Username</label>
-    <input type="text"nome="nome">
+    <input type="text" name="username" [(ngModel)]="username">
 
     <label>Password</label>
-    <input type="password"  name="password">
+    <input type="text" name="password" [(ngModel)]="password">
 
-    <button class="btn-login" onclick="checkLogin()">
+    <button class="btn-login" (click)="checkLogin()">
       Login
     </button>
 </div>
