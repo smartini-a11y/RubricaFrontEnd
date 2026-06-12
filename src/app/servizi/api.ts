@@ -32,15 +32,16 @@ export class ContattiAggingiService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  // GET - Lista contatti  da vedere 
+  // GET - Lista contatti  da vedere
   getContatti(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
 
   // POST - Aggiungi familiare da vedere
-  aggiungiFamigliare(familiare: any): Observable<string> {
-    return this.http.post(this.apiUrlFM, familiare, { responseType: 'text' });
-  }
+ aggiungiFamigliare(contattoId: number, famigliareId: number): Observable<string> {
+  const body = { contattoId: contattoId, famigliareId: famigliareId };
+  return this.http.post(this.apiUrlFM, body, { responseType: 'text' });
+}
 
   // PUT - Modifica familiare da vedere
   modificaFamigliare(idContatto: number, idFamigliare: number, familiare: any): Observable<string> {
@@ -58,7 +59,7 @@ export class ContattiAggingiService {
   }
 
   // GET - Lista familiari di un contatto da vedere
-  getFamigliari(idContatto: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrlFM}/condivisi/${idContatto}`);
-  }
+ getFamigliari(idContatto: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrlFM}/${idContatto}`);
+}
 }

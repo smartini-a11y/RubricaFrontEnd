@@ -22,17 +22,35 @@ h1 {
   transform: scale(1.05);
 }
 .riga-contatto {
-  display: flex;        
-  align-items: center;  
-  gap: 11px;            
-  width: 100%;         
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
 
 
 
-  flex-grow: 1;        
+  flex-grow: 1;
 
 
 app-btnmodifica {
   flex-shrink: 0;
 }
+}
+
+.contatto-info {
+    background-color: white;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #978d8d;
+    width: 250px;
+    height: 35px;
+    color: black;
+    align-items: center;
+    display:flex;
+    justify-content: center;
+}
+.contatto-info:hover {
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
 }
