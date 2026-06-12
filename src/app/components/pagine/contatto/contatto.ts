@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
 
 @Component({
   selector: 'app-contatto',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, BTNmodifica,FormsModule],
   templateUrl: './contatto.html',
   styleUrl: './contatto.css',
 })

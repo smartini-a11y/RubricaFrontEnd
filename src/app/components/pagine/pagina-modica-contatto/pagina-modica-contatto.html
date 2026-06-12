@@ -14,15 +14,12 @@
 
   </form>
 
- <h2>Modifica contatto</h2>
-
   <form>
   <h2>Modifica Contatto </h2>
  <form>
 <div class="modifica-contatto">
     <label>Nome</label>
     <input type="text" name="nome" [(ngModel)]="nome">
-    <input type="string" [(ngModel)]="nome" name="nome">
 
     <label>Cognome</label>
     <input type="text" name="cognome" [(ngModel)]="cognome">
@@ -37,7 +34,11 @@
     <button class="btn-modifica" (click)="salvaModifiche()">
       Salva
     </button>
-
+<button type="button" class="btn-ritorno" >
+    <a 
+      href="../" style="text-decoration: none;color: black;">Torna alla rubrica
+    </a>  
+</button>
   </form>
 
 

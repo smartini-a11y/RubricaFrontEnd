@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import{RouterLink} from '@angular/router';
-import { Router } from '@angular/router';
 
 import { BTNaggiungiFam } from "../../bottoni/btnaggiungi-fam/btnaggiungi-fam";
 import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
