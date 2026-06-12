@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-
 import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
 import { ContattiAggingiService } from '../../../servizi/api';
-
 import { ChangeDetectorRef } from '@angular/core';
-
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 interface Contatto {
   id: number;
   nome: string;
@@ -21,7 +18,7 @@ interface Contatto {
 @Component({
   selector: 'app-contatto',
   standalone: true,
-  imports: [CommonModule, FormsModule, BTNmodifica, RouterLink],
+  imports: [CommonModule, FormsModule, BTNmodifica],
   templateUrl: './contatto.html',
   styleUrl: './contatto.css',
 })
@@ -36,7 +33,8 @@ export class ContattoComponent implements OnInit {
     private route: ActivatedRoute,
     private service: ContattiAggingiService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    protected location: Location
   ) {}
 
   vaiAlContatto(id: number) {

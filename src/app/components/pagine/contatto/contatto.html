@@ -1,10 +1,9 @@
 <h1>Dettagli Contatto</h1>
-<button type="button" class="btn-ritorno">
-  <a href="../" style="text-decoration: none; color: black;">Torna alla rubrica</a>
+<button type="button" class="btn-ritorno" (click)="location.back()">
+  Torna indietro
 </button>
 <app-btnmodifica [id]="c?.id"></app-btnmodifica>
 
-<!-- DETTAGLIO CONTATTO -->
 <div *ngIf="c as contatto" class="contatto-dettagli">
   <div class="campo">
     <label><strong>Nome:</strong> {{ contatto.nome }}</label>
