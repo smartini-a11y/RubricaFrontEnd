@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ContattiAggingiService {
+export class ServizioApi {
 
   private apiUrl = 'http://192.168.124.18:5000/api/Contatti';
   private apiUrlFM = 'http://192.168.124.18:5000/api/Famigliari';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // POST - Aggiungi contatto funziona
   aggiungiContatto(contatto: any): Observable<string> {

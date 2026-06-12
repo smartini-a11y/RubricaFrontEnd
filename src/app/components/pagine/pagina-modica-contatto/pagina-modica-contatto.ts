@@ -1,7 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContattiAggingiService } from '../../../servizi/api';
+import { ServizioApi } from '../../../servizi/api';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
@@ -30,9 +30,9 @@ export class PaginaModicaComponent implements OnInit {
 
   // Injected ContattiAggingiService into the constructor
   constructor(
-    private service: ContattiAggingiService,
-    private cdr: ChangeDetectorRef 
-  ) {}
+    private service: ServizioApi,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     const state = window.history.state;
@@ -40,7 +40,7 @@ export class PaginaModicaComponent implements OnInit {
     if (state && state.contatto) {
       this.nome = state.contatto.nome;
       this.cognome = state.contatto.cognome;
-      this.numTelefono = state.contatto.telefono; 
+      this.numTelefono = state.contatto.telefono;
       this.email = state.contatto.email;
     }
   }

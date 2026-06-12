@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ContattiAggingiService } from '../../../servizi/api';
+import { ServizioApi } from '../../../servizi/api';
 
 @Component({
   selector: 'app-paginaaggiungi',
@@ -16,16 +16,16 @@ export class PaginaAggiungiComponent {
   email: string = '';
   numTelefono: string = '';
 
-  constructor(private service: ContattiAggingiService) {}
+  constructor(private service: ServizioApi) { }
 
   aggiungiContatto() {
 
-  const body = {
-  nome: this.nome,
-  cognome: this.cognome,
-  email: this.email,
-  numTelefono: this.numTelefono   // <-- DEVE CHIAMARSI COSÌ
-  };
+    const body = {
+      nome: this.nome,
+      cognome: this.cognome,
+      email: this.email,
+      numTelefono: this.numTelefono   // <-- DEVE CHIAMARSI COSÌ
+    };
 
 
     this.service.aggiungiContatto(body).subscribe({
