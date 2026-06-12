@@ -1,11 +1,14 @@
-<h1>Dettagli Contatto</h1>
-  <button type="button" class="btn-ritorno" >
-    <a 
-      href="../" style="text-decoration: none;color: black;">Torna alla rubrica
-    </a>  
-</button>
+<div class="header-row">
+  <h1>Dettagli Contatto</h1>
   
-<app-btnmodifica></app-btnmodifica>
+  <div class="button-group">
+    <app-btnmodifica></app-btnmodifica><button type="button" class="btn-elimina" (click)="eliminaContatto()">❌</button><app-btnindietro></app-btnindietro>
+  </div>
+</div>
+
+
+  
+
   
   <div class="contatto-dettagli">
     <p><strong>Nome:</strong> {{ c.nome }}</p>

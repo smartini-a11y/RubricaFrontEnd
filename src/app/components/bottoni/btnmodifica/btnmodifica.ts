@@ -12,7 +12,9 @@ export class BTNmodifica {
   @Input() c!: any; 
 
   constructor(private router: Router) {}
-
+/**
+ * Porta l'utente alla pagina "modica"
+ */
  vaiAllaModifica() {
  this.router.navigate(['/pagina-modica-contatto'], {
       state: { contatto: this.c }

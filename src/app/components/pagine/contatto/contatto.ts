@@ -3,11 +3,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
-
+import { Btnelimina } from '../../bottoni/btnelimina/btnelimina';
+import { Btnindietro } from '../../bottoni/btnindietro/btnindietro';
+import {ContattiAggingiService} from '../../../servizi/api'
 @Component({
   selector: 'app-contatto',
   standalone: true,
-  imports: [CommonModule, RouterModule, BTNmodifica,FormsModule],
+  imports: [CommonModule, RouterModule,Btnindietro, BTNmodifica,Btnelimina,FormsModule],
   templateUrl: './contatto.html',
   styleUrl: './contatto.css',
 })
@@ -20,7 +22,7 @@ export class ContattoComponent implements OnInit {
   // Variabile d'appoggio per il select per evitare getElementById
   idSelezionato: string = '';
 
-  constructor(private route: ActivatedRoute,private router: Router) 
+  constructor(private route: ActivatedRoute,private router: Router, private api: ContattiAggingiService) 
   {
     // Recuperiamo la lista che arriva dall'altra pagina
     const navigazione = this.router.getCurrentNavigation();
@@ -77,4 +79,22 @@ export class ContattoComponent implements OnInit {
   {
     this.messaggio = this.familiariSelezionati.map((f) => `${f.nome} ${f.cognome}`).join('\n');
   }
+  
+eliminaContatto(): void {
+    if (!this.c) return;
+
+    const conferma = confirm("Sei sicuro di voler eliminare "+this.c.nome +" "+this.c.cognome+"?");
+    if (!conferma) return;
+
+    this.api.rimuoviContatto(this.c.id).subscribe({
+      next: () => {
+        this.router.navigate([''], { relativeTo: this.route });
+      },
+      error: (err) => {
+        console.error('Errore durante eliminazione:', err);
+        alert('Errore durante l\'eliminazione del contatto.');
+      }
+    });
+  }
+
 }

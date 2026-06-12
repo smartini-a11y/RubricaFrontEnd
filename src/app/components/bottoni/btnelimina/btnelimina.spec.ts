@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BTNaggiungiFam } from './btnaggiungi-fam';
+import { Btnelimina } from './btnelimina';
 
-
-describe('BTNaggiungiFam', () => {
-  let component: BTNaggiungiFam;
-  let fixture: ComponentFixture<BTNaggiungiFam>;
+describe('Btnelimina', () => {
+  let component: Btnelimina;
+  let fixture: ComponentFixture<Btnelimina>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BTNaggiungiFam],
+      imports: [Btnelimina],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BTNaggiungiFam);
+    fixture = TestBed.createComponent(Btnelimina);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

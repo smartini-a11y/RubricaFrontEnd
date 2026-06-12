@@ -14,7 +14,7 @@
   background-color: #ffcc00;
   transform: scale(1.05);
 }
-.btn-modifica {
+.btn-indietro {
   background-color: #ffd500;
   color: #333;
   border: none;
@@ -28,7 +28,7 @@
   
 }
 
-.btn-modifica:hover {
+.btn-indietro:hover {
   background-color: #ffcc00;
   transform: scale(1.05);
 }
