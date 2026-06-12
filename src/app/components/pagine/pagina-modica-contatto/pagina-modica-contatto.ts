@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContattiAggingiService } from '../../../servizi/api';
 import { ChangeDetectorRef } from '@angular/core';
 
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-modica',
@@ -14,7 +14,7 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class PaginaModicaComponent implements OnInit {
 
-  idDaCercare: number = 0; // Initialize with a default value, will be set in ngOnInit()
+  idDaCercare: number =0;
 
   // Modifiers properties bound to ngModel
   nome: string = '';
@@ -25,17 +25,21 @@ export class PaginaModicaComponent implements OnInit {
   // Injected ContattiAggingiService into the constructor
   constructor(
     private service: ContattiAggingiService,
-    private cdr: ChangeDetectorRef, 
+    private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.idDaCercare = Number(params.get('id') ?? 0);
+
+    this.route.paramMap.subscribe(parms =>{
+      this.idDaCercare=Number(parms.get('id') ?? 0 );
     });
+
+
+
     this.service.getContatto(this.idDaCercare).subscribe({
       next: (contatto) => {
-        console.log("Contatto recuperato:", contatto);
+        console.log("contatto recuperato", contatto);
         this.nome = contatto.nome;
         this.cognome = contatto.cognome;
         // Make sure property mapping matches your backend interface payload format (telefono vs numTelefono)
@@ -47,7 +51,6 @@ export class PaginaModicaComponent implements OnInit {
         console.error("Errore API:", err);
       }
     });
-    
   }
 
   salvaModifiche() {
