@@ -9,6 +9,7 @@ import { ContattiAggingiService } from '../../../servizi/api';
 
 import { ChangeDetectorRef } from '@angular/core';
 
+import { Router } from '@angular/router';
 interface Contatto {
   id: number;
   nome: string;
@@ -34,45 +35,57 @@ export class ContattoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service: ContattiAggingiService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
-  ngOnInit(): void {
-  const id = Number(this.route.snapshot.paramMap.get('id'));
-  if (!id) {
-    console.error("ID non valido");
-    return;
-  }
+  vaiAlContatto(id: number) {
+  this.router.navigate(['/contatto', id]);
+            this.cdr.detectChanges();
 
-  // Prima carico tutti i contatti
-  this.service.getContatti().subscribe({
-    next: (lista) => {
-      this.contatti = lista;
+}
 
-      // Solo dopo carico il contatto corrente (this.contatti è già pronto)
-      this.service.getContatto(id).subscribe({
-        next: (c) => {
-          this.c = {
-            id: c.id,
-            nome: c.nome,
-            cognome: c.cognome,
-            email: c.email,
-            numTelefono: c.numTelefono
-          };
-          this.caricaFamiliari(); // this.contatti è già popolato ✅
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error("Errore API:", err);
-          alert("Contatto non trovato");
-        }
-      });
-    },
-    error: (err) => {
-      console.error("Errore durante il caricamento dei contatti:", err);
+ngOnInit(): void {
+  this.route.paramMap.subscribe(params => {
+    const id = Number(params.get('id'));
+    if (!id) {
+      console.error("ID non valido");
+      return;
     }
+
+    // Reset dello stato
+    this.c = null;
+    this.familiari = [];
+    this.contatti = [];
+    this.idContattoSelezionato = null;
+
+    // Carica tutto da capo
+    this.service.getContatti().subscribe({
+      next: (lista) => {
+        this.contatti = lista;
+        this.service.getContatto(id).subscribe({
+          next: (c) => {
+            this.c = {
+              id: c.id,
+              nome: c.nome,
+              cognome: c.cognome,
+              email: c.email,
+              numTelefono: c.numTelefono
+            };
+            this.caricaFamiliari();
+            this.cdr.detectChanges();
+          },
+          error: (err) => {
+            console.error("Errore API:", err);
+            alert("Contatto non trovato");
+          }
+        });
+      },
+      error: (err) => console.error("Errore lista contatti:", err)
+    });
   });
 }
+
 
   // 🔄 Carica i familiari SOLO quando this.c è disponibile
 caricaFamiliari() {
@@ -99,8 +112,21 @@ ricaricaTutto() {
   });
 }
 
+eliminaFamigliare(famigliareId: number) {
+  if (!this.c) return;
 
+  if (!confirm("Sei sicuro di voler rimuovere questo familiare?")) return;
 
+  this.service.rimuoviFamigliare(this.c.id, famigliareId).subscribe({
+    next: () => {
+      this.ricaricaTutto();
+    },
+    error: (err) => {
+      console.error("Errore durante l'eliminazione:", err);
+      alert("Errore durante l'eliminazione");
+    }
+  });
+}
 
 
 

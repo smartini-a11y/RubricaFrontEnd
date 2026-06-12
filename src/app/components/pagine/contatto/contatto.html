@@ -39,15 +39,15 @@
 <hr>
 
 <!-- LISTA FAMILIARI GIÀ ASSOCIATI -->
-<div >
+<div>
   <h3>Familiari</h3>
   <div *ngFor="let f of familiari" class="familiare-item">
     <span class="familiare-nome">
       {{ f.nome }} {{ f.cognome }}
     </span>
     <div class="familiare-actions">
-      <a [routerLink]="['/contatto', f.id]" class="btn-info-custom">info</a>
-      <button type="button" class="btn-elimina-custom" >
+<button type="button" class="btn-info-custom" (click)="vaiAlContatto(f.id)">info</button>
+  <button type="button" class="btn-elimina-custom" (click)="eliminaFamigliare(f.id)">
         Elimina
       </button>
     </div>
