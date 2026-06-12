@@ -9,14 +9,14 @@ import { Router } from '@angular/router';
 })
 export class BTNmodifica {
 
-  @Input() c!: any; 
+  @Input() id!: any; 
 
   constructor(private router: Router) {}
 
- vaiAllaModifica() {
- this.router.navigate(['/pagina-modica-contatto'], {
-      state: { contatto: this.c }
+  vaiAllaModifica() {
+    this.router.navigate(['/pagina-modica-contatto', this.id], {
+        state: { contatto: this.id }
     });
-}
+  }
 
 }

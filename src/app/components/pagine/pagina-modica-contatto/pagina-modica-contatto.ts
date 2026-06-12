@@ -1,8 +1,9 @@
 import { FormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ContattiAggingiService } from '../../../servizi/api';
 import { ChangeDetectorRef } from '@angular/core';
+
+import { ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-pagina-modica',
@@ -13,7 +14,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class PaginaModicaComponent implements OnInit {
 
-  idDaCercare: number | null = null;
+  idDaCercare: number = 0; // Initialize with a default value, will be set in ngOnInit()
 
   // Modifiers properties bound to ngModel
   nome: string = '';
@@ -21,53 +22,32 @@ export class PaginaModicaComponent implements OnInit {
   numTelefono: string = '';
   email: string = '';
 
-  // Added missing properties referenced in cercaContatto()
-  cercaNome: string = '';
-  cercaCognome: string = '';
-  cercaNumTelefono: string = '';
-  cercaEmail: string = '';
-  mostraSecondaForm: boolean = false;
-
   // Injected ContattiAggingiService into the constructor
   constructor(
     private service: ContattiAggingiService,
-    private cdr: ChangeDetectorRef 
+    private cdr: ChangeDetectorRef, 
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    const state = window.history.state;
-
-    if (state && state.contatto) {
-      this.nome = state.contatto.nome;
-      this.cognome = state.contatto.cognome;
-      this.numTelefono = state.contatto.telefono; 
-      this.email = state.contatto.email;
-    }
-  }
-
-  cercaContatto() {
-    if (!this.idDaCercare) {
-      alert("Inserisci un ID valido per cercare");
-      return;
-    }
-
-    // Moved the API call inside the proper method block
+    this.route.paramMap.subscribe(params => {
+      this.idDaCercare = Number(params.get('id') ?? 0);
+    });
     this.service.getContatto(this.idDaCercare).subscribe({
       next: (contatto) => {
-        console.log(contatto);
+        console.log("Contatto recuperato:", contatto);
         this.nome = contatto.nome;
         this.cognome = contatto.cognome;
         // Make sure property mapping matches your backend interface payload format (telefono vs numTelefono)
         this.numTelefono = contatto.numTelefono || contatto.telefono;
         this.email = contatto.email;
-        this.mostraSecondaForm = true;
         this.cdr.detectChanges();
       },
       error: (err) => {
         console.error("Errore API:", err);
-        alert("Contatto non trovato");
       }
     });
+    
   }
 
   salvaModifiche() {
