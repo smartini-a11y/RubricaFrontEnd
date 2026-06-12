@@ -1,83 +1,149 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
+
 import { Btnelimina } from '../../bottoni/btnelimina/btnelimina';
 import { Btnindietro } from '../../bottoni/btnindietro/btnindietro';
 import {ContattiAggingiService} from '../../../servizi/api'
+import { ContattiAggingiService } from '../../../servizi/api';
+import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+interface Contatto {
+  id: number;
+  nome: string;
+  cognome: string;
+  email: string;
+  numTelefono: string;
+}
+
 @Component({
   selector: 'app-contatto',
   standalone: true,
-  imports: [CommonModule, RouterModule,Btnindietro, BTNmodifica,Btnelimina,FormsModule],
+  imports: [CommonModule, RouterModule,Btnindietro, BTNmodifica,Btnelimina,FormsModule, FormsModule, BTNmodifica],
   templateUrl: './contatto.html',
   styleUrl: './contatto.css',
 })
 export class ContattoComponent implements OnInit {
-  c: any = undefined;
-  listaContatti: any[] = [];
-  familiariSelezionati: any[] = [];
-  messaggio: string = '';
 
-  // Variabile d'appoggio per il select per evitare getElementById
-  idSelezionato: string = '';
+  idContattoSelezionato: number | null = null;
+  c: Contatto | null = null;
+  familiari: any[] = [];
+  contatti: any[] = [];
 
-  constructor(private route: ActivatedRoute,private router: Router, private api: ContattiAggingiService) 
-  {
-    // Recuperiamo la lista che arriva dall'altra pagina
-    const navigazione = this.router.getCurrentNavigation();
-    if (navigazione?.extras.state && navigazione.extras.state['tuttiIContatti']) 
-    {
-      this.listaContatti = navigazione.extras.state['tuttiIContatti'];
+  constructor(
+    private route: ActivatedRoute,
+    private service: ContattiAggingiService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    protected location: Location
+  ) {}
+
+  vaiAlContatto(id: number) {
+  this.router.navigate(['/contatto', id]);
+            this.cdr.detectChanges();
+
+}
+
+ngOnInit(): void {
+  this.route.paramMap.subscribe(params => {
+    const id = Number(params.get('id'));
+    if (!id) {
+      console.error("ID non valido");
+      return;
     }
-  }
 
-  ngOnInit(): void 
-  {
-    // Ascolta l'URL: se l'ID cambia, esegue il codice qui dentro AUTOMATICAMENTE
-    this.route.paramMap.subscribe(params => {const id = Number(params.get('id'));
-    // Trova il contatto corrispondente all'ID e assegnalo a 'c'
-    this.c = this.listaContatti.find(c => Number(c.id) === id);});
-    this.familiariSelezionati = [];
-    this.messaggio = '';
-    
-  }
+    // Reset dello stato
+    this.c = null;
+    this.familiari = [];
+    this.contatti = [];
+    this.idContattoSelezionato = null;
 
-  // Controlla se l'item della lista è il contatto corrente 
-  checkContatto(item: any): boolean {
-    if (!this.c) return true;
-    return item.id !== this.c.id; // controllo tramite id
-  }
+    // Carica tutto da capo
+    this.service.getContatti().subscribe({
+      next: (lista) => {
+        this.contatti = lista;
+        this.service.getContatto(id).subscribe({
+          next: (c) => {
+            this.c = {
+              id: c.id,
+              nome: c.nome,
+              cognome: c.cognome,
+              email: c.email,
+              numTelefono: c.numTelefono
+            };
+            this.caricaFamiliari();
+            this.cdr.detectChanges();
+          },
+          error: (err) => {
+            console.error("Errore API:", err);
+            alert("Contatto non trovato");
+          }
+        });
+      },
+      error: (err) => console.error("Errore lista contatti:", err)
+    });
+  });
+}
 
-  // ID come parametro direttamente dall'HTML
-  condividiContatto(selectedId: number): void 
-  {
-    if (!selectedId) return;
 
-    const familiare = this.listaContatti.find((c) => Number(c.id) === selectedId);
+  // 🔄 Carica i familiari SOLO quando this.c è disponibile
+caricaFamiliari() {
+  if (!this.c) return;
 
-    if (!familiare) return;
+  this.service.getFamigliari(this.c.id).subscribe({
+    next: (lista) => {
+      this.familiari = lista; // ✅ già pronti con nome e cognome
+      this.cdr.detectChanges();
+    },
+    error: (err) => console.error("Errore caricamento familiari:", err)
+  });
+}
 
-    // Evito duplicati sempre confrontanto gli id
-    const giaPresente = this.familiariSelezionati.some(
-      (f) => Number(f.id) === Number(familiare.id),
-    );
-    if (!giaPresente) {
-      this.familiariSelezionati.push(familiare);
-      this.aggiornaMessaggio();
+
+ricaricaTutto() {
+  this.service.getContatti().subscribe({
+    next: (lista) => {
+      this.contatti = lista;
+      this.caricaFamiliari();
+      this.cdr.detectChanges();
+    },
+    error: (err) => console.error("Errore ricarica contatti:", err)
+  });
+}
+
+eliminaFamigliare(famigliareId: number) {
+  if (!this.c) return;
+
+  if (!confirm("Sei sicuro di voler rimuovere questo familiare?")) return;
+
+  this.service.rimuoviFamigliare(this.c.id, famigliareId).subscribe({
+    next: () => {
+      this.ricaricaTutto();
+    },
+    error: (err) => {
+      console.error("Errore durante l'eliminazione:", err);
+      alert("Errore durante l'eliminazione");
     }
+  });
+}
+
+
+
+  // ➕ Aggiungi familiare
+aggiungiFamigliare() {
+  if (!this.idContattoSelezionato) {
+    alert("Seleziona un contatto dal menu a tendina.");
+    return;
   }
 
-  rimuoviFamiliare(familiare: any): void 
-  {
-    this.familiariSelezionati = this.familiariSelezionati.filter((f) => Number(f.id) !== Number(familiare.id),);
-    this.aggiornaMessaggio();
-  }
-
-  // Messo in una funzione separata per non ripetere codice
-  aggiornaMessaggio(): void 
-  {
-    this.messaggio = this.familiariSelezionati.map((f) => `${f.nome} ${f.cognome}`).join('\n');
+  // ✅ Controlla se è già un familiare
+  const giàPresente = this.familiari.some(f => f.id === this.idContattoSelezionato);
+  if (giàPresente) {
+    alert("Questo contatto è già un familiare.");
+    return;
   }
   
 eliminaContatto(): void {
@@ -96,5 +162,29 @@ eliminaContatto(): void {
       }
     });
   }
+  this.service.aggiungiFamigliare(this.c!.id, this.idContattoSelezionato!).subscribe({
+    next: () => {
+      alert("Contatto aggiunto come familiare");
+      this.service.getContatti().subscribe({
+        next: (lista) => {
+          this.contatti = lista;
+          this.caricaFamiliari();
+          this.idContattoSelezionato = null;
+          this.cdr.detectChanges();
+      this.ricaricaTutto(); // ✅ ricarica tutto in sequenza
+        }
 
+      });
+    },
+    error: (err) => {
+      // Gestisci il 409 in modo leggibile
+      if (err.status === 409) {
+        alert("Questo contatto è già un familiare.");
+      } else {
+        console.error("Errore durante l'aggiunta del familiare:", err);
+        alert("Errore durante l'aggiunta");
+      }
+    }
+  });
+}
 }

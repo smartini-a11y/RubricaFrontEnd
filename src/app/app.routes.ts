@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: 'pagina-aggiungi', component: PaginaAggiungiComponent },
 
   // pagina modifica
-  { path: 'pagina-modica-contatto', component: PaginaModicaComponent },
+ { path: 'pagina-modica-contatto/:id', component: PaginaModicaComponent },
 
   { path: 'login', component: Login },
   { path: 'btn-contatto', component: BtnContattoComponent }

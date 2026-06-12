@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContattiAggingiService } from '../../../servizi/api';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-paginaaggiungi',
@@ -16,7 +17,7 @@ export class PaginaAggiungiComponent {
   email: string = '';
   numTelefono: string = '';
 
-  constructor(private service: ContattiAggingiService) {}
+  constructor(private service: ContattiAggingiService, protected location: Location) {}
 
   aggiungiContatto() {
 

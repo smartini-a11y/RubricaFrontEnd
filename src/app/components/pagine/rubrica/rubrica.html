@@ -6,12 +6,12 @@
 <div class="rubrica-container">
 
   <div *ngFor="let c of listaContatti" class="contatto">
-    <a [routerLink]="['/contatto', c.id]" 
-       [queryParams]="{ id: c.id}" 
+    <a [routerLink]="['/contatto', c.id]"
+       [queryParams]="{ id: c.id}"
        [state]="{ tuttiIContatti: listaContatti }"
        style="text-decoration: none; color: black;">
       <div class="contatto-info">
-        <app-btn-contatto [c]="c"></app-btn-contatto>
+        {{c.nome}} {{c.cognome}}
       </div>
     </a>
   </div>
