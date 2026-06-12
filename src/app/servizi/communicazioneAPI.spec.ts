@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ContattiAggingiService } from './contatti-aggingi';
+import { ContattiAggingiService } from './communicazioneAPI';
 
 describe('ContattiAggingi', () => {
   let service: ContattiAggingiService;

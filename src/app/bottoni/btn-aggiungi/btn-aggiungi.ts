@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-btnaggiungi-fam',
+  selector: 'app-btnaggiungi',
   standalone: true,
-  templateUrl: './btnaggiungi-fam.html',
-  styleUrls: ['./btnaggiungi-fam.css']
+  templateUrl: './btn-aggiungi.html',
+  styleUrls: ['./btn-aggiungi.css']
 })
-export class BTNaggiungiFam {
+export class BTNaggiungi {
 
   constructor(private router: Router) {}
 

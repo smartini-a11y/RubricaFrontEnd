@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaginaModificaComponent } from './pagina-modica-contatto';
+import { PaginaModificaContatto } from './pagina-modifica-contatto';
 
 describe('PaginaModicaContatto', () => {
-  let component: PaginaModificaComponent;
-  let fixture: ComponentFixture<PaginaModificaComponent>;
+  let component: PaginaModificaContatto;
+  let fixture: ComponentFixture<PaginaModificaContatto>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaginaModificaComponent],
+      imports: [PaginaModificaContatto],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PaginaModificaComponent);
+    fixture = TestBed.createComponent(PaginaModificaContatto);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

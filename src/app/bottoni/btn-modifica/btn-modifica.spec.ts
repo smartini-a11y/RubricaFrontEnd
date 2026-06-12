@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BTNmodifica } from './btnmodifica';
+import { BTNmodifica } from './btn-modifica';
 
 describe('Btnmodifica', () => {
   let component: BTNmodifica;
