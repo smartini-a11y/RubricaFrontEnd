@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import{RouterLink} from '@angular/router';
 import { Router } from '@angular/router';
 
-import { BTNaggiungiFam } from "../../btnaggiungi-fam/btnaggiungi-fam";
-import { BTNmodifica } from "../../btnmodifica/btnmodifica";
-import { BtnContattoComponent } from "../../btn-contatto/btn-contatto";
+import { BTNaggiungiFam } from "../../bottoni/btnaggiungi-fam/btnaggiungi-fam";
+import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
+import { BtnContattoComponent } from "../../bottoni/btn-contatto/btn-contatto";
 
-import { ContattiAggingiService } from '../../servizi/contatti-aggingi';
+import { ContattiAggingiService } from '../../../servizi/api';
 import { ChangeDetectorRef } from '@angular/core';
 
 interface Contatto {

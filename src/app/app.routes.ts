@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
-import { PaginaAggiungiComponent } from './pagina-aggiungi/pagina-aggiungi';
-import { PaginaModicaComponent } from './pagina-modica-contatto/pagina-modica-contatto';
-import { RubricaComponent } from './components/rubrica/rubrica';
-import { ContattoComponent } from './components/contatto/contatto';
-import { BtnContattoComponent } from './btn-contatto/btn-contatto';
+import { PaginaAggiungiComponent } from './components/pagine/pagina-aggiungi/pagina-aggiungi';
+import { PaginaModicaComponent } from './components/pagine/pagina-modica-contatto/pagina-modica-contatto';
+import { RubricaComponent } from './components/pagine/rubrica/rubrica';
+import { ContattoComponent } from './components/pagine/contatto/contatto';
+import { BtnContattoComponent } from './components/bottoni/btn-contatto/btn-contatto';
 
 
 export const routes: Routes = [

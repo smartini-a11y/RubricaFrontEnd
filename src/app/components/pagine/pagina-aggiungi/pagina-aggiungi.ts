@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ContattiAggingiService } from '../servizi/contatti-aggingi';
+import { ContattiAggingiService } from '../../../servizi/api';
 
 @Component({
   selector: 'app-paginaaggiungi',
