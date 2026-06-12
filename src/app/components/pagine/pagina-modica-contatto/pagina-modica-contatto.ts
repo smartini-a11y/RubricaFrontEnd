@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ContattiAggingiService } from '../../../servizi/api';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -27,6 +27,7 @@ export class PaginaModicaComponent implements OnInit {
     private service: ContattiAggingiService,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
+    protected location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -34,8 +35,6 @@ export class PaginaModicaComponent implements OnInit {
     this.route.paramMap.subscribe(parms =>{
       this.idDaCercare=Number(parms.get('id') ?? 0 );
     });
-
-
 
     this.service.getContatto(this.idDaCercare).subscribe({
       next: (contatto) => {
@@ -64,7 +63,7 @@ export class PaginaModicaComponent implements OnInit {
       id: this.idDaCercare,
       nome: this.nome,
       cognome: this.cognome,
-      telefono: this.numTelefono,
+      numTelefono: this.numTelefono,
       email: this.email
     };
 
@@ -72,5 +71,6 @@ export class PaginaModicaComponent implements OnInit {
       next: () => alert("Contatto modificato con successo"),
       error: () => alert("Errore durante la modifica")
     });
+    this.location.back();
   }
 }
