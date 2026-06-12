@@ -1,80 +1,77 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { BTNmodifica } from "../../bottoni/btnmodifica/btnmodifica";
+import { ContattiAggingiService } from '../../../servizi/api';
+
+import { ChangeDetectorRef } from '@angular/core';
+
+
+interface Contatto {
+  id: number;
+  nome: string;
+  cognome: string;
+  email: string;
+  numTelefono: string;
+}
 
 @Component({
   selector: 'app-contatto',
   standalone: true,
-  imports: [CommonModule, RouterModule, BTNmodifica,FormsModule],
+  imports: [CommonModule, FormsModule, BTNmodifica],
   templateUrl: './contatto.html',
   styleUrl: './contatto.css',
 })
 export class ContattoComponent implements OnInit {
-  c: any = undefined;
-  listaContatti: any[] = [];
-  familiariSelezionati: any[] = [];
-  messaggio: string = '';
 
-  // Variabile d'appoggio per il select per evitare getElementById
-  idSelezionato: string = '';
+  c: Contatto | undefined = undefined;
 
-  constructor(private route: ActivatedRoute,private router: Router) 
-  {
-    // Recuperiamo la lista che arriva dall'altra pagina
-    const navigazione = this.router.getCurrentNavigation();
-    if (navigazione?.extras.state && navigazione.extras.state['tuttiIContatti']) 
-    {
-      this.listaContatti = navigazione.extras.state['tuttiIContatti'];
+  constructor(
+    private route: ActivatedRoute,
+    private service: ContattiAggingiService,
+        private cdr: ChangeDetectorRef
+
+  ) {}
+
+  ngOnInit(): void {
+
+    // 1️⃣ Prendo l'ID dall'URL
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (!id) {
+      console.error("ID non valido");
+      return;
     }
-  }
 
-  ngOnInit(): void 
-  {
-    // Ascolta l'URL: se l'ID cambia, esegue il codice qui dentro AUTOMATICAMENTE
-    this.route.paramMap.subscribe(params => {const id = Number(params.get('id'));
-    // Trova il contatto corrispondente all'ID e assegnalo a 'c'
-    this.c = this.listaContatti.find(c => Number(c.id) === id);});
-    this.familiariSelezionati = [];
-    this.messaggio = '';
-    
-  }
+    // 2️⃣ Chiamo l'API
+    this.service.getContatto(id).subscribe({
 
-  // Controlla se l'item della lista è il contatto corrente 
-  checkContatto(item: any): boolean {
-    if (!this.c) return true;
-    return item.id !== this.c.id; // controllo tramite id
-  }
+      next: (c) => {
 
-  // ID come parametro direttamente dall'HTML
-  condividiContatto(selectedId: number): void 
-  {
-    if (!selectedId) return;
+        console.log("RAW API:", c);
 
-    const familiare = this.listaContatti.find((c) => Number(c.id) === selectedId);
+        // 3️⃣ PARSING CORRETTO
+        this.c = {
+          id: c.id,
+          nome: c.nome,
+          cognome: c.cognome,
+          email: c.email,
+          numTelefono: c.numTelefono
+        };
 
-    if (!familiare) return;
+        // 4️⃣ LOG COMPLETO DOPO PARSING
+        console.log("CONTATTO PARSATO:", this.c);
 
-    // Evito duplicati sempre confrontanto gli id
-    const giaPresente = this.familiariSelezionati.some(
-      (f) => Number(f.id) === Number(familiare.id),
-    );
-    if (!giaPresente) {
-      this.familiariSelezionati.push(familiare);
-      this.aggiornaMessaggio();
-    }
-  }
+                this.cdr.detectChanges();
 
-  rimuoviFamiliare(familiare: any): void 
-  {
-    this.familiariSelezionati = this.familiariSelezionati.filter((f) => Number(f.id) !== Number(familiare.id),);
-    this.aggiornaMessaggio();
-  }
+      },
 
-  // Messo in una funzione separata per non ripetere codice
-  aggiornaMessaggio(): void 
-  {
-    this.messaggio = this.familiariSelezionati.map((f) => `${f.nome} ${f.cognome}`).join('\n');
+      error: (err) => {
+        console.error("Errore API:", err);
+        alert("Contatto non trovato");
+      }
+    });
   }
 }

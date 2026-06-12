@@ -32,7 +32,7 @@ export class ContattiAggingiService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  // GET - Lista contatti  da vedere 
+  // GET - Lista contatti  da vedere
   getContatti(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }

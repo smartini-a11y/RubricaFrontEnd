@@ -1,20 +1,34 @@
 <h1>Dettagli Contatto</h1>
-  <button type="button" class="btn-ritorno" >
-    <a 
-      href="../" style="text-decoration: none;color: black;">Torna alla rubrica
-    </a>  
+
+<button type="button" class="btn-ritorno">
+  <a href="../" style="text-decoration: none; color: black;">Torna alla rubrica</a>
 </button>
-  
+
 <app-btnmodifica></app-btnmodifica>
-  
-  <div class="contatto-dettagli">
-    <p><strong>Nome:</strong> {{ c.nome }}</p>
-    <p><strong>Cognome:</strong> {{ c.cognome }}</p>
-    <p><strong>Telefono:</strong> {{ c.Numtelefono }}</p>
-    <p><strong>Email:</strong> {{ c.email }}</p>
+
+<!-- MOSTRA TUTTO SOLO QUANDO c È DEFINITO -->
+<div *ngIf="c as contatto" class="contatto-dettagli">
+
+   <div class="campo">
+    <label><strong>Nome:</strong> {{ contatto.nome }}</label>
   </div>
 
+  <div class="campo">
+    <label><strong>Cognome:</strong> {{ contatto.cognome }}</label>
+  </div>
 
+  <div class="campo">
+    <label><strong>Telefono:</strong> {{ contatto.numTelefono }}</label>
+  </div>
+
+  <div class="campo">
+    <label><strong>Email:</strong> {{ contatto.email }}</label>
+  </div>
+
+</div>
+
+<!-- Mantengo la tua parte commentata -->
+<!--
 <div>
   <p>Aggiungi familiare:</p>
 
@@ -36,11 +50,13 @@
 
   <h3>Familiari Selezionati</h3>
 
-    <div *ngFor="let f of familiariSelezionati" class="familiare-item">
+  <div *ngFor="let f of familiariSelezionati" class="familiare-item">
     <span class="familiare-nome">{{ f.nome }} {{ f.cognome }}</span>
-    
-      <div class="familiare-actions">
-          <a href="/contatto/{{ f.id }}" class="btn-info-custom">info</a>
-          <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">Elimina</button>
-      </div>
+
+    <div class="familiare-actions">
+      <a href="/contatto/{{ f.id }}" class="btn-info-custom">info</a>
+      <button type="button" (click)="rimuoviFamiliare(f)" class="btn-elimina-custom">Elimina</button>
     </div>
+  </div>
+</div>
+-->
